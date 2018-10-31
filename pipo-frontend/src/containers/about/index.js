@@ -6,33 +6,41 @@ class About extends React.Component {
   componentDidMount = () => this.fetchNotes();
 
   fetchNotes = () => {
-  	const {fetchNotes, showError} = this.props;
-  	return fetchNotes().catch(err => {
-  		console.log(`Error: ${err}`);
-  		return showError(err);
-  	});
+    const {fetchNotes, showError} = this.props;
+    return fetchNotes().catch(err => {
+      console.log(`Error: ${err}`);
+      return showError(err);
+    });
   };
 
   render = () => {
-  	return (
-	<div>
-	<h1>About Us</h1>
-	<p>Hello Medium!</p>
-  		</div>
-  	);
+    const {notes} = this.props;
+    let notesList;
+    if (notes) {
+      if (notes.objects) {
+        notesList = notes.objects.map((item, id) => <p key={id}>{item.body}</p>);
+      }
+    }
+    return (
+      <div>
+        <h1>About Us</h1>
+        <p>Hello Medium!</p>
+        {notesList}
+      </div>
+    );
   };
 }
 
 const mapStateToProps = state => ({
-	notes: state.notes || {},
+  notes: state.notes.notes || {},
 });
 
 const mapDispatchToProps = {
-	fetchNotes: getNotes,
-	showError: setError,
+  fetchNotes: getNotes,
+  showError: setError,
 };
 
 export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
+  mapStateToProps,
+  mapDispatchToProps
 )(About);
