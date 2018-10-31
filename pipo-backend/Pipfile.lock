@@ -1,7 +1,20 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "415dfdcb118dd9bdfef17671cb7dcd78dbd69b6ae7d4f39e8b44e71d60ca72e7"
+            "sha256": "80446e9e28df6102b679557c18ac31df6e13c3a54981b87c33e8b8c0c9ec01fe"
+        },
+        "host-environment-markers": {
+            "implementation_name": "cpython",
+            "implementation_version": "3.6.2",
+            "os_name": "posix",
+            "platform_machine": "x86_64",
+            "platform_python_implementation": "CPython",
+            "platform_release": "18.0.0",
+            "platform_system": "Darwin",
+            "platform_version": "Darwin Kernel Version 18.0.0: Wed Aug 22 20:13:40 PDT 2018; root:xnu-4903.201.2~1/RELEASE_X86_64",
+            "python_full_version": "3.6.2",
+            "python_version": "3.6",
+            "sys_platform": "darwin"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,6 +28,31 @@
             }
         ]
     },
-    "default": {},
+    "default": {
+        "django": {
+            "hashes": [],
+            "version": "==2.1.2"
+        },
+        "django-tastypie": {
+            "hashes": [],
+            "version": "==0.14.2"
+        },
+        "python-dateutil": {
+            "hashes": [],
+            "version": "==2.7.5"
+        },
+        "python-mimeparse": {
+            "hashes": [],
+            "version": "==1.6.0"
+        },
+        "pytz": {
+            "hashes": [],
+            "version": "==2018.7"
+        },
+        "six": {
+            "hashes": [],
+            "version": "==1.11.0"
+        }
+    },
     "develop": {}
 }

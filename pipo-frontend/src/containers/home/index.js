@@ -6,7 +6,7 @@ import {
 	decrementAsync,
 	increment,
 	incrementAsync,
-} from "../../modules/counter";
+} from "../../reducers/counter";
 import {push} from "connected-react-router";
 
 const Home = props => (
