@@ -4,8 +4,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Divider from "@material-ui/core/Divider";
 import Drawer from "@material-ui/core/Drawer";
+import HomeIcon from "@material-ui/icons/Home";
 import IconButton from "@material-ui/core/IconButton";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
+import InfoIcon from "@material-ui/icons/Info";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -17,6 +19,7 @@ import React from "react";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
+import {NavLink} from "react-router-dom";
 import {withStyles} from "@material-ui/core/styles";
 
 const drawerWidth = 240;
@@ -99,7 +102,7 @@ class MiniDrawer extends React.Component {
 
   render() {
     const {classes, theme} = this.props;
-
+    console.log(this.props.location.pathname);
     return (
       <div className={classes.root}>
         <CssBaseline />
@@ -149,14 +152,29 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+            <NavLink
+              to="/"
+              style={{textDecoration: "none"}}>
               <ListItem
                 button
-                key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
+                key={"Home"}
+                selected={this.props.location.pathname === "/"}
+              >
+                <ListItemIcon><HomeIcon /></ListItemIcon>
+                <ListItemText primary={"Home"} />
               </ListItem>
-            ))}
+            </NavLink>
+            <NavLink
+              to="/about/"
+              style={{textDecoration: "none"}}>
+              <ListItem
+                button
+                key={"About"}
+                selected={this.props.location.pathname === "/about/"}>
+                <ListItemIcon><InfoIcon /></ListItemIcon>
+                <ListItemText primary={"About"} />
+              </ListItem>
+            </NavLink>
           </List>
           <Divider />
           <List>

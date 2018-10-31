@@ -1,11 +1,16 @@
 import About from "../about";
 import AppBar from "../../components/AppBar";
 import Home from "../home";
+import Login from "../login";
 import React from "react";
-import {Route} from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 
 export default () => (
-  <div>
+  <Switch>
+    <Route
+      exact
+      path="/login"
+      component={Login}/>
     <AppBar title="PIPO - HKU">
       <Route
         exact
@@ -16,5 +21,5 @@ export default () => (
         path="/about"
         component={About}/>
     </AppBar>
-  </div>
+  </Switch>
 );

@@ -23,8 +23,8 @@ class About extends React.Component {
     }
     return (
       <div>
-        <h1>About Us</h1>
-        <p>Hello Medium!</p>
+        <h1>About</h1>
+        <p>Personal IPO Platform</p>
         {notesList}
       </div>
     );
