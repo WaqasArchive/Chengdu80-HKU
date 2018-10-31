@@ -1,26 +1,20 @@
 import About from "../about";
+import AppBar from "../../components/AppBar";
 import Home from "../home";
 import React from "react";
-import {Link, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 
 export default () => (
   <div>
-    <header>
-      <Link to="/">Home</Link>
-      <Link to="/about">About</Link>
-    </header>
-
-    <main>
+    <AppBar title="PIPO - HKU">
       <Route
         exact
         path="/"
-        component={Home}
-      />
+        component={Home}/>
       <Route
         exact
         path="/about"
-        component={About}
-      />
-    </main>
+        component={About}/>
+    </AppBar>
   </div>
 );
