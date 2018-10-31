@@ -1,26 +1,23 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Root from "./containers/app";
+import store, {history} from "./store";
+import {ConnectedRouter} from "connected-react-router";
+import {Provider} from "react-redux";
 
-class App extends Component {
-  state = {users: []}
+import "./App.css";
 
-  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
-  }
-
-  render() {
-    return (
-      <div className="App">
-        <h1>Users</h1>
-        {this.state.users.map(user =>
-          <div key={user.id}>{user.username}</div>
-        )}
-      </div>
-    );
-  }
+class App extends React.Component {
+	render() {
+		return (
+			<Provider store={store}>
+				<ConnectedRouter history={history}>
+					<div>
+						<Root />
+					</div>
+				</ConnectedRouter>
+			</Provider>
+		);
+	}
 }
 
 export default App;
