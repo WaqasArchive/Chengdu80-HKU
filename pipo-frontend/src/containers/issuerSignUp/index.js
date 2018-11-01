@@ -2,6 +2,7 @@ import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
+import Loader from "react-loader-spinner";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
@@ -13,29 +14,32 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import fields from "./fields";
+import steps from "./steps";
+import {Formik} from "formik";
+import {connect} from "react-redux";
+import {push} from "connected-react-router";
+import {signUpIssuer} from "../../actions/issuerSignUp";
 import {withStyles} from "@material-ui/core/styles";
 
-const SimpleSelect = ({id, name, options, value, onChange}) =>
-  <FormControl style={{minWidth: 400}}>
-    <InputLabel htmlFor={id}>{name}</InputLabel>
-    <Select
-      value={value}
-      onChange={onChange}
-      inputProps={{
-        name: {id},
-      }}
-    >
-      <MenuItem value="">
-        <em>None</em>
-      </MenuItem>
-      {options.map(item =>
-        <MenuItem
-          key={item.value}
-          value={item.value}>{item.option}
-        </MenuItem>)}
-    </Select>
-  </FormControl>;
+const SimpleSelect = ({id, name, options, value, onChange}) => {
+  return (
+    <FormControl style={{minWidth: 400}}>
+      <InputLabel htmlFor={id}>{name}</InputLabel>
+      <Select
+        value={value}
+        onChange={onChange}
+      >
+        <MenuItem value="">
+          <em>None</em>
+        </MenuItem>
+        {options.map(item =>
+          <MenuItem
+            key={item.value}
+            value={item.value}>{item.option}
+          </MenuItem>)}
+      </Select>
+    </FormControl>);
+};
 
 const styles = theme => ({
   root: {
@@ -66,64 +70,19 @@ const styles = theme => ({
   },
 });
 
-function getSteps() {
-  return ["Introduction to your IPO", "Add Personal Details", "Specify IPO Details"];
-}
-
 class IssuerForm extends React.Component {
   state = {
     activeStep: 0,
   };
 
   componentDidMount () {
-    fields.forEach(step => {
-      step.forEach(field => {
-        this.setState({[field.id]: ""});
-      });
+    steps.forEach(step => {
+      if (step.input) {
+        step.input.forEach(field => {
+          this.setState({[field.id]: ""});
+        });
+      }
     });
-  }
-
-  getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return "Three easy steps to your IPO, add some information about yourself, specify particulars regarding your IPO and There you go!";
-      case 1:
-      case 2:
-        return (
-          <Grid
-            container
-            direction="column"
-            spacing={16}
-            style={{paddingBottom: 20}}>
-            {
-              fields[step].map(field => (
-                <Grid
-                  item
-                  key={field.id}>
-                  {field.dropdown &&
-                    <SimpleSelect
-                      id={field.id}
-                      name={field.name}
-                      options={field.dropdown}
-                      value={this.state[field.id]}
-                      onChange={this.handleChange}
-                    />}
-                  {!field.dropdown &&
-                    <TextField
-                      style={{minWidth: 400}}
-                      id={field.id}
-                      label={field.name}
-                      margin="dense"
-                      variant="filled"
-                      type={field.type}
-                    />}
-                </Grid>
-              ))}
-          </Grid>
-        );
-      default:
-        return "Unknown step";
-    }
   }
 
   handleNext = () => {
@@ -138,13 +97,8 @@ class IssuerForm extends React.Component {
     }));
   };
 
-  handleChange = event => {
-    this.setState({[event.target.name.id]: event.target.value});
-  };
-
   render() {
-    const {classes} = this.props;
-    const steps = getSteps();
+    const {classes, createIssuer, issuerSignUp} = this.props;
     const {activeStep} = this.state;
 
     return (
@@ -152,47 +106,129 @@ class IssuerForm extends React.Component {
         <Paper
           className={classes.paper}
           elevation={1}>
-          <Stepper
-            activeStep={activeStep}
-            orientation="vertical"
-            style={{backgroundColor: "transparent"}}>
-            {steps.map((label, index) => {
-              return (
-                <Step key={label}>
-                  <StepLabel>{label}</StepLabel>
-                  <StepContent>
-                    <Typography>{this.getStepContent(index)}</Typography>
-                    <div className={classes.actionsContainer}>
-                      <div>
-                        <Button
-                          disabled={activeStep === 0}
-                          onClick={this.handleBack}
-                          className={classes.button}
-                        >
+          <Formik
+            initialValues={{age: 2}}
+            onSubmit={(values, {setSubmitting}) => {
+              createIssuer(values);
+              setSubmitting(false);
+            }}
+          >
+            {({
+              values,
+              handleChange,
+              handleSubmit,
+              isSubmitting,
+              setFieldValue,
+            /* and other goodies */
+            }) => (
+              <form onSubmit={handleSubmit}>
+                <Stepper
+                  activeStep={activeStep}
+                  orientation="vertical"
+                  style={{backgroundColor: "transparent"}}>
+                  {steps.map(step => {
+                    if (step.input) {
+                      step.input.forEach(field => {
+                        if (!values[field.id]) {
+                          values[field.id] = "";
+                        }
+                      });
+                    }
+                    return (
+                      <Step key={step.label}>
+                        <StepLabel>{step.label}</StepLabel>
+                        <StepContent>
+                          <Typography>
+                            {step.content && step.content}
+                            {step.input && (
+                              <Grid
+                                container
+                                direction="column"
+                                spacing={16}
+                                style={{paddingBottom: 20}}>
+                                {
+                                  step.input.map(field => (
+                                    <Grid
+                                      item
+                                      key={field.id}>
+                                      {field.dropdown &&
+                                        <SimpleSelect
+                                          id={field.id}
+                                          name={field.name}
+                                          options={field.dropdown}
+                                          value={values[field.id]}
+                                          onChange={e => {
+                                            setFieldValue(field.id,e.target.value);
+                                          }}
+                                        />}
+                                      {!field.dropdown &&
+                                        <TextField
+                                          style={{minWidth: 400}}
+                                          id={field.id}
+                                          label={field.name}
+                                          margin="dense"
+                                          variant="filled"
+                                          onChange={handleChange}
+                                          value={values[field.id]}
+                                          type={field.type}
+                                        />}
+                                    </Grid>
+                                  ))}
+                              </Grid>
+                            )}
+                          </Typography>
+                          <div className={classes.actionsContainer}>
+                            <div>
+                              <Button
+                                disabled={activeStep === 0 || isSubmitting}
+                                onClick={this.handleBack}
+                                className={classes.button}
+                              >
                         Back
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={this.handleNext}
-                          className={classes.button}
-                        >
-                          {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                        </Button>
-                      </div>
-                    </div>
-                  </StepContent>
-                </Step>
-              );
-            })}
-          </Stepper>
-          {activeStep === steps.length && (
+                              </Button>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() => {
+                                  if (activeStep === steps.length - 1) {
+                                    this.setState(state => ({
+                                      activeStep: state.activeStep + 1,
+                                    }));
+                                    handleSubmit();
+                                  } else {
+                                    this.handleNext();
+                                  }
+                                }}
+                                className={classes.button}
+                              >
+                                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                              </Button>
+                            </div>
+                          </div>
+                        </StepContent>
+                      </Step>
+                    );
+                  })}
+                </Stepper>
+              </form>
+            )}
+          </Formik>
+          {issuerSignUp.processing &&
+            <Loader
+              style={{textAlign:"center"}}
+              type="Puff"
+              color="#3f51b5"
+              height="100"
+              width="100"
+            />}
+          {activeStep === steps.length && issuerSignUp.createdIssuerId && (
             <Paper
               square
               elevation={0}
               className={classes.resetContainer}>
               <Typography>All steps completed - you&quot;re finished</Typography>
               <Button
+                onClick={()=>this.props.changePage()}
                 className={classes.button}>
               Ok
               </Button>
@@ -208,4 +244,13 @@ IssuerForm.propTypes = {
   classes: PropTypes.object,
 };
 
-export default withStyles(styles)(IssuerForm);
+const mapStateToProps = state => ({
+  issuerSignUp: state.issuerSignUp || {},
+});
+
+const mapDispatchToProps = {
+  createIssuer: signUpIssuer,
+  changePage: () => push("/issuer_details"),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IssuerForm));

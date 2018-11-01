@@ -24,7 +24,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import drawerItems from "./drawer.js";
-import {NavLink} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core/styles";
 
@@ -226,7 +226,11 @@ class MiniDrawer extends React.Component {
                 onClick={this.handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle />
+                <Link
+                  to="/login"
+                  style={{textDecoration: "none", color: "inherit"}}>
+                  <AccountCircle />
+                </Link>
               </IconButton>
             </div>
           </Toolbar>
