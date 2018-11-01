@@ -11,7 +11,7 @@ export default () => (
       exact
       path="/login"
       component={Login}/>
-    <AppBar title="PIPO - HKU">
+    <AppBar title="PIPO">
       <Route
         exact
         path="/"
