@@ -1,10 +1,13 @@
 import Bargraph from "../../components/bargraph";
 import Feed from "../../components/Feed";
 import Grid from "@material-ui/core/Grid";
+import Iporaisedcard from "../../components/Iporaisedcard";
 import Paper from "@material-ui/core/Paper";
+import ProfileCard from "../../components/ProfileCard";
 import PropTypes from "prop-types";
 import React from "react";
 import TopIssuerList from "../../components/TopIssuerList";
+import TrendingList from "../../components/TrendingList";
 import feed from "../../data/feed";
 import topIssuers from "../../data/topIssuers";
 import {withStyles} from "@material-ui/core/styles";
@@ -43,7 +46,7 @@ function Home(props) {
         item
         xs={3}>
         <Paper className={classes.paper}>
-          <TopIssuerList issuers={topIssuers} />
+          <ProfileCard />
         </Paper>
       </Grid>
       <Grid
@@ -51,6 +54,27 @@ function Home(props) {
         xs={3}>
         <Paper className={classes.paper}>
           <Bargraph />
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+          <Iporaisedcard />
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+          <TrendingList />
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+          <TopIssuerList issuers={topIssuers} />
         </Paper>
       </Grid>
     </Grid>
