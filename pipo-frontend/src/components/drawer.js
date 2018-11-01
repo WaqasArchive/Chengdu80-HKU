@@ -19,4 +19,9 @@ export default [
     route: "/issuer_details",
     icon: "timeline",
   },
+  {
+    name: "Issuer Sign Up",
+    route: "/issuer_signup",
+    icon: "assignment",
+  },
 ];

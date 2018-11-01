@@ -3,6 +3,7 @@ import AppBar from "../../components/AppBar";
 import Counter from "../counter";
 import Home from "../home";
 import IssuerDetails from "../issuerDetails";
+import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
 import React from "react";
 import {Route, Switch} from "react-router-dom";
@@ -30,6 +31,10 @@ export default () => (
         exact
         path="/issuer_details"
         component={IssuerDetails} />
+      <Route
+        exact
+        path="/issuer_signup"
+        component={IssuerSignUp} />
     </AppBar>
   </Switch>
 );
