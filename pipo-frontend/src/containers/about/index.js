@@ -23,7 +23,7 @@ class About extends React.Component {
     }
     return (
       <div>
-        <h1>About</h1>
+        <h1 style={{paddingTop: 20}}>About</h1>
         <p>Personal IPO Platform</p>
         {notesList}
       </div>

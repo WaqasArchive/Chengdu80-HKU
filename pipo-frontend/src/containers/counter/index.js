@@ -6,7 +6,7 @@ import {push} from "connected-react-router";
 
 const Counter = props => (
   <div>
-    <h1>Counter</h1>
+    <h1 style={{paddingTop: 20}}>Counter</h1>
     <p>
       Count:
       {props.count}

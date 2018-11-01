@@ -12,6 +12,11 @@ export default [
   {
     name: "Counter",
     route: "/counter",
+    icon: "details",
+  },
+  {
+    name: "Issuer Details",
+    route: "/issuer_details",
     icon: "timeline",
   },
 ];
