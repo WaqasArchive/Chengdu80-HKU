@@ -1,9 +1,12 @@
+import Bargraph from "../../components/bargraph";
 import Feed from "../../components/Feed";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
 import TopIssuerList from "../../components/TopIssuerList";
+import feed from "../../data/feed";
+import topIssuers from "../../data/topIssuers";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -20,63 +23,6 @@ const styles = theme => ({
 
 function Home(props) {
   const {classes} = props;
-  const feed = [
-    {
-      name: "Piyush Jha",
-      date: "October 31, 2018",
-      content: "This is a random post.",
-      image: "/static/images/cards/paella.jpg",
-    },
-    {
-      name: "Waqas Ali",
-      date: "November 1, 2018",
-      content: "This is a random post.",
-    },
-    {
-      name: "Piyush Jha",
-      date: "October 31, 2018",
-      content: "This is a random post.",
-      image: "/static/images/cards/paella.jpg",
-    },
-    {
-      name: "Waqas Ali",
-      date: "November 1, 2018",
-      content: "This is a random post.",
-    },
-    {
-      name: "Piyush Jha",
-      date: "October 31, 2018",
-      content: "This is a random post.",
-      image: "/static/images/cards/paella.jpg",
-    },
-    {
-      name: "Waqas Ali",
-      date: "November 1, 2018",
-      content: "This is a random post.",
-    },
-    {
-      name: "Piyush Jha",
-      date: "October 31, 2018",
-      content: "This is a random post.",
-      image: "/static/images/cards/paella.jpg",
-    },
-    {
-      name: "Waqas Ali",
-      date: "November 1, 2018",
-      content: "This is a random post.",
-    },
-    {
-      name: "Waqas Ali",
-      date: "November 1, 2018",
-      content: "This is a random post.",
-    },
-    {
-      name: "Piyush Jha",
-      date: "October 31, 2018",
-      content: "This is a random post.",
-      image: "/static/images/cards/paella.jpg",
-    },
-  ];
 
   return (
     <Grid
@@ -97,7 +43,14 @@ function Home(props) {
         item
         xs={3}>
         <Paper className={classes.paper}>
-          <TopIssuerList />
+          <TopIssuerList issuers={topIssuers} />
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+          <Bargraph />
         </Paper>
       </Grid>
     </Grid>

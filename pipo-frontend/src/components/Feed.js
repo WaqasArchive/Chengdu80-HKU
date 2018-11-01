@@ -1,10 +1,10 @@
 import Divider from "@material-ui/core/Divider";
 import FeedItem from "./FeedItem";
 import Grid from "@material-ui/core/Grid";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -23,18 +23,13 @@ const Feed = props => {
       <Grid
         container
         justify="left">
-        <Typography
-          component="h5"
-          variant="h5"
-          style={{paddingBottom: 5}}>
-          Investee Feed
-        </Typography>
+        <ListSubheader align="left">Investee Feed</ListSubheader>
       </Grid>
       <Divider style={{marginBottom: 20}} />
       <Grid
         container
-        justify="left"
-        spacing={24}
+        justify="space-around"
+        spacing={16}
         style={{
           maxHeight: 400,
           overflow: "auto",

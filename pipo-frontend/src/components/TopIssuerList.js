@@ -1,12 +1,13 @@
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import PropTypes from 'prop-types';
-import React from 'react';
-import StarIcon from '@material-ui/icons/Star';
-import Typography from '@material-ui/core/Typography';
-import { withStyles } from '@material-ui/core/styles';
+import Divider from "@material-ui/core/Divider";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import PropTypes from "prop-types";
+import React from "react";
+import StarIcon from "@material-ui/icons/Star";
+import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
   root: {
@@ -17,25 +18,23 @@ const styles = theme => ({
 });
 
 function InsetList(props) {
-  const {classes} = props;
+  const {issuers} = props;
   return (
-    <Typography align="right">
-      <div className={classes.root}>
-        <List component="nav">
-          <ListItem button>
-            <ListItemIcon>
-              <StarIcon />
-            </ListItemIcon>
-            <ListItemText inset
-primary="Chelsea Otakan" />
-          </ListItem>
-          <ListItem button>
-            <ListItemText inset
-primary="Eric Hoffman" />
-          </ListItem>
-        </List>
-      </div>
-    </Typography>
+    <List subheader={<ListSubheader align="left">Top 5 Issuers</ListSubheader>}>
+      <Divider style={{marginBottom: 20}} />
+      {issuers.map((name, index) => (
+        <ListItem
+          key={index}
+          button>
+          <ListItemIcon>
+            <StarIcon />
+          </ListItemIcon>
+          <ListItemText
+            inset
+            primary={name} />
+        </ListItem>
+      ))}
+    </List>
   );
 }
 
