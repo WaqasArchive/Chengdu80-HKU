@@ -1,5 +1,6 @@
 import About from "../about";
 import AppBar from "../../components/AppBar";
+import Counter from "../counter";
 import Home from "../home";
 import Login from "../login";
 import React from "react";
@@ -20,6 +21,10 @@ export default () => (
         exact
         path="/about"
         component={About}/>
+      <Route
+        exact
+        path="/counter"
+        component={Counter}/>
     </AppBar>
   </Switch>
 );

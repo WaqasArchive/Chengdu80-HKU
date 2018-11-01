@@ -1,60 +1,63 @@
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
+import PropTypes from "prop-types";
 import React from "react";
-import {bindActionCreators} from "redux";
-import {connect} from "react-redux";
-import {decrement, decrementAsync, increment, incrementAsync} from "../../reducers/counter";
-import {push} from "connected-react-router";
+import TopIssuerList from "../../components/TopIssuerList";
+import {Route} from "react-router-dom";
+import {withStyles} from "@material-ui/core/styles";
 
-const Home = props => (
-  <div>
-    <h1>Home</h1>
-    <p>
-      Count:
-      {props.count}
-    </p>
-
-    <p>
-      <button onClick={props.increment}>Increment</button>
-      <button
-        onClick={props.incrementAsync}
-        disabled={props.isIncrementing}>
-        Increment Async
-      </button>
-    </p>
-
-    <p>
-      <button onClick={props.decrement}>Decrementing</button>
-      <button
-        onClick={props.decrementAsync}
-        disabled={props.isDecrementing}>
-        Decrement Async
-      </button>
-    </p>
-
-    <p>
-      <button onClick={() => props.changePage()}>Go to about page via redux</button>
-    </p>
-  </div>
-);
-
-const mapStateToProps = ({counter}) => ({
-  count: counter.count,
-  isIncrementing: counter.isIncrementing,
-  isDecrementing: counter.isDecrementing,
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    paddingTop: 20,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
 });
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(
-    {
-      increment,
-      incrementAsync,
-      decrement,
-      decrementAsync,
-      changePage: () => push("/about"),
-    },
-    dispatch
-  );
+function Home(props) {
+  const {classes} = props;
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+  return (
+    <Grid
+      container
+      className={classes.root}
+      spacing={24}>
+      <Grid
+        item
+        xs={12}>
+        <h3>Home</h3>
+      </Grid>
+      <Grid
+        item
+        xs={6}>
+        <Paper className={classes.paper}>xs=6</Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+        </Paper>
+      </Grid>
+      <Grid
+        item
+        xs={3}>
+        <Paper className={classes.paper}>
+          <Route
+            exact
+            path="/"
+            component={TopIssuerList}/>
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+}
+
+Home.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles)(Home);

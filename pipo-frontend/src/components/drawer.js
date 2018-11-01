@@ -9,4 +9,9 @@ export default [
     route: "/about",
     icon: "info",
   },
+  {
+    name: "Counter",
+    route: "/counter",
+    icon: "timeline",
+  },
 ];
