@@ -45,9 +45,7 @@ function Home(props) {
       <Grid
         item
         xs={3}>
-        <Paper className={classes.paper}>
-          <ProfileCard />
-        </Paper>
+        <ProfileCard />
       </Grid>
       <Grid
         item
@@ -59,9 +57,7 @@ function Home(props) {
       <Grid
         item
         xs={3}>
-        <Paper className={classes.paper}>
-          <Iporaisedcard />
-        </Paper>
+        <Iporaisedcard />
       </Grid>
       <Grid
         item
