@@ -35,7 +35,7 @@ function Home(props) {
       <Grid
         item
         xs={12}>
-        <h1>Home</h1>
+        <h1 style={{marginBottom:0}}>Home</h1>
       </Grid>
       <Grid
         item
@@ -57,7 +57,9 @@ function Home(props) {
       <Grid
         item
         xs={3}>
-        <Iporaisedcard />
+        <Paper className={classes.paper}>
+          <Iporaisedcard />
+        </Paper>
       </Grid>
       <Grid
         item

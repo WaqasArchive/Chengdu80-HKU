@@ -77,7 +77,7 @@ class FeedItem extends React.Component {
           className={classes.media}
           image={item.image}
           title="Paella dish" />}
-        <CardContent>
+        <CardContent style={{marginBottom: 0, paddingBottom: 0}}>
           <Typography component="p">{item.content}</Typography>
         </CardContent>
         <CardActions

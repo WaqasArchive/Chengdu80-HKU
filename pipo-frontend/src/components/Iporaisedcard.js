@@ -1,8 +1,9 @@
 import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardHeader from "@material-ui/core/CardHeader";
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {withStyles} from "@material-ui/core/styles";
@@ -26,11 +27,9 @@ const styles = theme => ({
 
 function ipocard() {
   return (
-    <Card>
-      <CardHeader
-        title="Number of IPOs"
-        titleTypographyProps={{align: "center"}}
-      />
+    <Grid>
+      <ListSubheader align="left">Trending Investment Topics</ListSubheader>
+      <Divider style={{marginBottom: 20}} />
       <CardContent>
         <div>
           <Typography
@@ -55,7 +54,7 @@ function ipocard() {
 
         </Button>
       </CardActions>
-    </Card>
+    </Grid>
   );
 
 }

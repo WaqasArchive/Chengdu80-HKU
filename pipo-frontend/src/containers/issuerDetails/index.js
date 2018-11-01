@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import InvestorOrders from "./graphs/InvestorOrders";
+import IssuerForm from "../../components/IssuerForm";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";

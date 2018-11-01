@@ -3,8 +3,10 @@ import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Divider from "@material-ui/core/Divider";
 import Icon from "@material-ui/core/Icon";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
@@ -55,12 +57,8 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textPrimary"
-          gutterBottom>
-          Henry Charles
-        </Typography>
+        <ListSubheader align="left">Henry Charles</ListSubheader>
+        <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
           component="h2">

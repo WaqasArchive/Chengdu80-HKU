@@ -1,3 +1,5 @@
+import Divider from "@material-ui/core/Divider";
+import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
 import React from "react";
 
@@ -14,24 +16,27 @@ const sampleData = [{x: "Oct", y: 100},
   {x: "Nov", y: 230},
   {x: "Dec", y: 420}];
 
-export default function Example(props) {
+export default function Bargraph() {
   return (
-    <div>
+    <Grid style={{padding: 5}}>
       <ListSubheader align="left">Investor Trend</ListSubheader>
+      <Divider style={{marginBottom: 20}} />
       <XYPlot
-        margin={{left: 80}}
         xType="ordinal"
-        width={300}
-        height={300}>
+        width={250}
+        height={250}
+        style={{marginLeft: 20}}>
         <VerticalGridLines />
         <HorizontalGridLines />
-        <XAxis tickLabelAngle={-45} />
+        <XAxis
+          tickLabelAngle={-45}
+        />
         <YAxis />
         <VerticalBarSeries
           data={sampleData}
         />
       </XYPlot>
-    </div>
+    </Grid>
 
   );
 }

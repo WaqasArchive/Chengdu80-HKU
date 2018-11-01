@@ -13,6 +13,9 @@ const styles = theme => ({
     textAlign: "center",
     color: theme.palette.text.secondary,
   },
+  fade: {
+    maskImage: "linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 25%)",
+  },
 });
 
 const Feed = props => {
@@ -26,26 +29,28 @@ const Feed = props => {
         <ListSubheader align="left">Investee Feed</ListSubheader>
       </Grid>
       <Divider style={{marginBottom: 20}} />
-      <Grid
-        container
-        justify="space-around"
-        spacing={16}
-        style={{
-          maxHeight: 400,
-          overflow: "auto",
-          overflowY: "scroll",
-        }}
-      >
-        {items.map((item, index) => (
-          <Grid
-            item
-            key={index}>
-            <FeedItem
-              key={index}
-              item={item} />
-          </Grid>
-        ))}
-      </Grid>
+      <div className={classes.fade}>
+        <Grid
+          container
+          justify="space-around"
+          spacing={8}
+          style={{
+            maxHeight: 300,
+            overflow: "auto",
+            overflowY: "scroll",
+          }}
+        >
+          {items.map((item, index) => (
+            <Grid
+              item
+              key={index}>
+              <FeedItem
+                key={index}
+                item={item} />
+            </Grid>
+          ))}
+        </Grid>
+      </div>
     </Paper>
   );
 };
