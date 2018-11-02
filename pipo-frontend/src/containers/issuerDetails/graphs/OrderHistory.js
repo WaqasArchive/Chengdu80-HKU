@@ -5,7 +5,8 @@ VictoryBar,
 VictoryZoomContainer,
 VictoryLine,
 VictoryBrushContainer,
-VictoryAxis } from 'victory';
+VictoryAxis,
+VictoryLabel } from 'victory';
 
 export default class App extends React.Component {
 	constructor() {
@@ -48,11 +49,22 @@ export default class App extends React.Component {
 							x="a"
 							y="b"
 						/>
-
+					<VictoryAxis
+						label="Price"
+						style={{
+							axisLabel: { padding: 30 }
+						}}
+					/>
+					<VictoryAxis dependentAxis
+						label="Queries"
+						style={{
+							axisLabel: { padding: 35 }
+						}}
+					/>
 					</VictoryChart>
 					<VictoryChart
-						padding={{ top: 0, left: 50, right: 50, bottom: 30 }}
-						width={600} height={100} scale={{ x: "time" }}
+						padding={{ top: 10, left: 50, right: 50, bottom: 50 }}
+						width={700} height={200} scale={{ x: "time" }}
 						containerComponent={
 							<VictoryBrushContainer
 								brushDimension="x"
@@ -62,6 +74,7 @@ export default class App extends React.Component {
 						}
 					>
 						<VictoryAxis
+							label="Price"
 							tickFormat={(x) => new Date(x).getFullYear()}
 						/>
 						<VictoryLine

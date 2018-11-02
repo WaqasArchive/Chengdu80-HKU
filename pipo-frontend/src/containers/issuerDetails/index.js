@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
 import {withStyles} from "@material-ui/core/styles";
-
+import{VictoryLabel} from 'victory'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -33,11 +33,13 @@ function IssuerDetails(props) {
       </Grid>
       <Grid item>
         <Paper className={classes.paper}>
+          <VictoryLabel text={"Investor Orders"} x={110} y={30} size = '30px'/>
           <InvestorOrders />
         </Paper>
       </Grid>
       <Grid item>
         <Paper className={classes.paper}>
+          <VictoryLabel text={"Order History"} x={110} y={30} />
           <OrderHistory />
         </Paper>
       </Grid>

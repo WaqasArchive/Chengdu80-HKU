@@ -78,6 +78,19 @@ export default class App extends React.Component {
               { x: new Date(2016, 1, 1), y: 4 }
             ]}
           />
+           <VictoryAxis
+              label="Bidding Price"
+              style={{
+                axisLabel: { padding: 35 }
+              }}
+            />
+          
+          <VictoryAxis dependentAxis
+            label="Quantity"
+            style={{
+              axisLabel: { padding: 35 }
+            }}
+          />
         </VictoryChart>
       </div>
     );
