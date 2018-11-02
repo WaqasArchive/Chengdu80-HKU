@@ -20,7 +20,7 @@ export default [
     {
       name: "Issuer SetAskPrice",
       route: "/issuer_setPrice",
-      icon: "perm_identity",
+      icon: "subdirectory_arrow_right",
     },
   ],
   [
