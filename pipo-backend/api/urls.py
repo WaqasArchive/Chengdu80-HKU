@@ -1,5 +1,8 @@
-from django.conf.urls import url
-from rest_framework.authtoken import views as drf_views
+from django.urls import path
+
+from . import views
+
+app_name = 'api'
 urlpatterns = [
-    url(r'^auth$', drf_views.obtain_auth_token, name='auth'),
+    path('referencePrice', views.referencePrice, name='referencePrice'),
 ]
