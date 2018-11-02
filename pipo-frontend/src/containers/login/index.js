@@ -44,6 +44,7 @@ class LoginSheet extends React.Component {
   state = {
     password: "",
     showPassword: false,
+    status: false,
   };
 
   handleChange = prop => event => {
@@ -66,6 +67,7 @@ class LoginSheet extends React.Component {
         justify="center"
         style={{minHeight: "100vh", backgroundColor: "#7E57C2"}}
       >
+        {!this.state["status"] && (
         <Grid
           item
           xs={6}>
@@ -113,11 +115,12 @@ class LoginSheet extends React.Component {
                 }}
               />
             </Grid>
-            <Grid
+           <Grid
               item
               className={classNames(classes.input)}>
               <Button
-                className={classes.button}>
+                className={classes.button}
+                onClick={() => this.props.changePage("/register")}>
                 <PersonAdd className={classes.leftIcon} />
                   Register
               </Button>
@@ -126,7 +129,7 @@ class LoginSheet extends React.Component {
                 <Help className={classes.leftIcon} />
                   Forgot Password?
               </Button>
-            </Grid>
+           </Grid>
             <Grid
               item
               className={classNames(classes.input)}>
@@ -134,14 +137,51 @@ class LoginSheet extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => this.props.changePage()}>
-                Login
+                onClick={() => this.setState({status: true})}>
+                Next
                 <Send className={classes.rightIcon} />
               </Button>
             </Grid>
           </Paper>
-        </Grid>
-
+        </Grid>)}
+            
+        {this.state["status"] && (
+           <Grid
+           item
+           xs={6}>
+           <Paper
+             className={classes.root}
+             elevation={1}>
+              <Grid
+              item
+              className={classNames(classes.input)}>
+              <TextField
+                id="two-factor-auth"
+                label="Enter confirmation code"
+                className={classes.textField}
+                type="otp"
+                name="otp"
+                autoComplete="otp"
+                margin="normal"
+                variant="outlined"
+                style={{width: 300}}
+              />
+            </Grid>
+             <Grid
+             item
+             className={classNames(classes.input)}>
+             <Button
+               variant="contained"
+               color="primary"
+               className={classes.button}
+               onClick={() => this.props.changePage("/")}>
+               Login
+               <Send className={classes.rightIcon} />
+             </Button>
+           </Grid>
+           </Paper>
+        </Grid>)}
+            
       </Grid>
     );
   }
@@ -152,7 +192,7 @@ LoginSheet.propTypes = {
 };
 
 const mapDispatchToProps = {
-  changePage: () => push("/"),
+  changePage: (path) => push(path),
 };
 
 export default connect(

@@ -12,6 +12,8 @@ import React from "react";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import {withStyles} from "@material-ui/core/styles";
+import {connect} from "react-redux";
+import {push} from "connected-react-router";
 
 const styles = theme => ({
   button: {
@@ -94,7 +96,8 @@ function SimpleCard(props) {
           color="primary"
           className={classes.button}
           size="large"
-          styles={{align:"center"}}>
+          styles={{align:"center"}}
+          onClick={() => props.changePage("/issuer_signup")}>
         IPO NOW
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>
@@ -107,4 +110,11 @@ SimpleCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleCard);
+const mapDispatchToProps = {
+  changePage: (path) => push(path),
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(SimpleCard));

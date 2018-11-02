@@ -142,15 +142,25 @@ class RegisterSheet extends React.Component {
             <Grid
               item
               className={classNames(classes.input)}>
+              <TextField
+                id="two-factor-auth"
+                label="Phone Number (OAUTH)"
+                className={classes.textField}
+                type="phoneNumber"
+                name="phoneNumber"
+                autoComplete="phoneNumber"
+                margin="normal"
+                variant="outlined"
+                style={{width: 300}}
+              />
+            </Grid>
+            <Grid
+              item
+              className={classNames(classes.input)}>
               <Button
-                className={classes.button}>
-                <PersonAdd className={classes.leftIcon} />
-                  Register
-              </Button>
-              <Button
-                className={classes.button}>
-                <Help className={classes.leftIcon} />
-                  Forgot Password?
+                className={classes.button}
+                onClick={() => this.props.changePage("/login")}>
+                  Already have an account ?
               </Button>
             </Grid>
             <Grid
@@ -160,7 +170,7 @@ class RegisterSheet extends React.Component {
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                onClick={() => this.props.changePage()}>
+                onClick={() => this.props.changePage("/")}>
                 Register
                 <Send className={classes.rightIcon} />
               </Button>
@@ -178,7 +188,7 @@ RegisterSheet.propTypes = {
 };
 
 const mapDispatchToProps = {
-  changePage: () => push("/"),
+  changePage: (path) => push(path),
 };
 
 export default connect(
