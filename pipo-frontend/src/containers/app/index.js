@@ -5,6 +5,7 @@ import Home from "../home";
 import IssuerDetails from "../issuerDetails";
 import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
+import Register from "../register";
 import React from "react";
 import {Route, Switch} from "react-router-dom";
 
@@ -14,6 +15,10 @@ export default () => (
       exact
       path="/login"
       component={Login} />
+    <Route
+      exact
+      path="/register"
+      component={Register} />
     <AppBar title="PIPO">
       <Route
         exact
