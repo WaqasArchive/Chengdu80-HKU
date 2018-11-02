@@ -1,12 +1,12 @@
-import React from 'react';
-//import ShowcaseButton from '../showcase-components/showcase-button';
-import {
-  XYPlot,
-  XAxis,
-  YAxis,
-  VerticalBarSeries,
-  VerticalBarSeriesCanvas
-} from 'react-vis';
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { VictoryChart,
+VictoryBar,
+VictoryZoomContainer,
+VictoryLine,
+VictoryBrushContainer,
+VictoryAxis,
+Bar } from 'victory';
 //import * as myDATA from './csvjson.json';
 
 const myDATA = [
@@ -37,29 +37,49 @@ const yDomain = myDATA.reduce(
   {max: -Infinity, min: Infinity}
 );
 
-export default class Example extends React.Component {
-  state = {
-    useCanvas: false
-  };
+export default class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      clicked: false,
+      style: {
+        data: { fill: "tomato" }
+      }
+    };
+  }
 
   render() {
-    const {useCanvas} = this.state;
-    const content = useCanvas ? 'TOGGLE TO SVG' : 'TOGGLE TO CANVAS';
-    const BarSeries = useCanvas ? VerticalBarSeriesCanvas : VerticalBarSeries;
+    const handleMouseOver = () => {
+      const fillColor = this.state.clicked ? "blue" : "tomato";
+      const clicked = !this.state.clicked;
+      this.setState({
+        clicked,
+        style: {
+          data: { fill: fillColor }
+        }
+      });
+    };
+
     return (
-      <div style={{paddingTop: 20}}>
-        <XYPlot
-          margin={{left: 100}}
-          xType="ordinal"
-          width={800}
-          height={500}
-          yDomain={[yDomain.min, yDomain.max]}
+      <div>
+        <VictoryChart height={400} width={400}
+          domainPadding={{ x: 50, y: [0, 20] }}
+          scale={{ x: "time" }}
         >
-          <BarSeries className="vertical-bar-series-example" data={myDATA} />
-          <YAxis title = "Quantity"/>
-          <XAxis title = "Bid Prices"/>
-        </XYPlot>
+          <VictoryBar
+            dataComponent={
+              <Bar events={{ onMouseOver: handleMouseOver }}/>
+            }
+            style={this.state.style}
+            data={[
+              { x: new Date(1986, 1, 1), y: 2 },
+              { x: new Date(1996, 1, 1), y: 3 },
+              { x: new Date(2006, 1, 1), y: 5 },
+              { x: new Date(2016, 1, 1), y: 4 }
+            ]}
+          />
+        </VictoryChart>
       </div>
     );
   }
-}
+ }

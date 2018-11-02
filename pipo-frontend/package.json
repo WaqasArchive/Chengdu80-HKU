@@ -19,7 +19,8 @@
     "react-vis": "^1.11.4",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "typeface-roboto": "0.0.54"
+    "typeface-roboto": "0.0.54",
+    "victory": "^30.6.0"
   },
   "scripts": {
     "start": "react-scripts start",

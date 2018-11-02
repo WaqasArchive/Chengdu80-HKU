@@ -1,5 +1,6 @@
 import Grid from "@material-ui/core/Grid";
 import InvestorOrders from "./graphs/InvestorOrders";
+import OrderHistory from "./graphs/OrderHistory";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
@@ -33,6 +34,11 @@ function IssuerDetails(props) {
       <Grid item>
         <Paper className={classes.paper}>
           <InvestorOrders />
+        </Paper>
+      </Grid>
+      <Grid item>
+        <Paper className={classes.paper}>
+          <OrderHistory />
         </Paper>
       </Grid>
     </Grid>
