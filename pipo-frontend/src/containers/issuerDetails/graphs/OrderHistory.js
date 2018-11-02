@@ -7,12 +7,13 @@ VictoryLine,
 VictoryBrushContainer,
 VictoryAxis,
 VictoryLabel } from 'victory';
+import data from './data.js';
 
 export default class App extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			zoomDomain: { x: [new Date(1990, 1, 1), new Date(2009, 1, 1)] }
+			zoomDomain: { x: [1,2000] }
 		};
 	}
 
@@ -23,7 +24,7 @@ export default class App extends React.Component {
 	render() {
 		return (
 			<div>
-				<VictoryChart width={600} height={470} scale={{ x: "time" }}
+				<VictoryChart width={600} height={470} scale={{ x: "ordinal" }}
 					containerComponent={
 						<VictoryZoomContainer
 							zoomDimension="x"
@@ -36,16 +37,9 @@ export default class App extends React.Component {
 							style={{
 								data: { stroke: "tomato" }
 							}}
-							data={[
-								{ a: new Date(1982, 1, 1), b: 125 },
-								{ a: new Date(1987, 1, 1), b: 257 },
-								{ a: new Date(1993, 1, 1), b: 345 },
-								{ a: new Date(1997, 1, 1), b: 515 },
-								{ a: new Date(2001, 1, 1), b: 132 },
-								{ a: new Date(2005, 1, 1), b: 305 },
-								{ a: new Date(2011, 1, 1), b: 270 },
-								{ a: new Date(2015, 1, 1), b: 470 }
-							]}
+							data=
+								{data.map(item => ({b: item.p, b: item.q}))}
+							
 							x="a"
 							y="b"
 						/>
@@ -56,7 +50,7 @@ export default class App extends React.Component {
 						}}
 					/>
 					<VictoryAxis dependentAxis
-						label="Queries"
+						label="Quantities"
 						style={{
 							axisLabel: { padding: 35 }
 						}}
@@ -64,7 +58,7 @@ export default class App extends React.Component {
 					</VictoryChart>
 					<VictoryChart
 						padding={{ top: 10, left: 50, right: 50, bottom: 50 }}
-						width={600} height={100} scale={{ x: "time" }}
+						width={600} height={100} scale={{ x: "ordinal" }}
 						containerComponent={
 							<VictoryBrushContainer
 								brushDimension="x"
@@ -75,21 +69,22 @@ export default class App extends React.Component {
 					>
 						<VictoryAxis
 							label="Price"
-							tickFormat={(x) => new Date(x).getFullYear()}
+							//tickFormat={(x) => new Date(x).getFullYear()}
 						/>
 						<VictoryLine
 							style={{
-								data: { stroke: "tomato" }
+								data: { stroke: "blue" }
 							}}
 							data={[
-								{ key: new Date(1982, 1, 1), b: 125 },
-								{ key: new Date(1987, 1, 1), b: 257 },
-								{ key: new Date(1993, 1, 1), b: 345 },
-								{ key: new Date(1997, 1, 1), b: 515 },
-								{ key: new Date(2001, 1, 1), b: 132 },
-								{ key: new Date(2005, 1, 1), b: 305 },
-								{ key: new Date(2011, 1, 1), b: 270 },
-								{ key: new Date(2015, 1, 1), b: 470 }
+								{ key: 0, b: 125 },
+								{ key: 10, b: 257 },
+								{ key: 20, b: 345 },
+								{ key: 30, b: 515 },
+								{ key: 40, b: 132 },
+								{ key: 50, b: 305 },
+								{ key: 60, b: 270 },
+								{ key: 90, b: 470 },
+								{ key: 100, b: 470 },
 							]}
 							x="key"
 							y="b"
