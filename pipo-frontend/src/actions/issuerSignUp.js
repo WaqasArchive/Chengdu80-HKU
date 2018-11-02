@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../services/backend";
 
 export const ISSUER_SIGNUP_PROCESSING = "ISSUER_SIGNUP_PROCESSING";
 export const ISSUER_SIGNUP_ERROR = "ISSUER_SIGNUP_ERROR";
@@ -12,8 +12,7 @@ export function signUpIssuer(issuerDetails) {
     dispatch({
       type: ISSUER_SIGNUP_PROCESSING,
     });
-    console.log("asd");
-    axios.post("http://www.mocky.io/v2/5bdb3d69320000ba293ad504?mocky-delay=300ms", issuerDetails)
+    api.signUpIssuer(issuerDetails)
       .then(response => resolve(
         dispatch({
           type: ISSUER_SIGNUP_SUCCESS,

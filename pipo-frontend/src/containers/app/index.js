@@ -2,6 +2,7 @@ import About from "../about";
 import AppBar from "../../components/AppBar";
 import Counter from "../counter";
 import Home from "../home";
+import IpoList from "../ipoList";
 import IssuerDetails from "../issuerDetails";
 import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
@@ -35,6 +36,10 @@ export default () => (
         exact
         path="/issuer_signup"
         component={IssuerSignUp} />
+      <Route
+        exact
+        path="/ipoList"
+        component={IpoList} />
     </AppBar>
   </Switch>
 );

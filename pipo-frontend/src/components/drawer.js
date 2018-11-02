@@ -24,4 +24,9 @@ export default [
     route: "/issuer_signup",
     icon: "assignment",
   },
+  {
+    name: "IPO List",
+    route: "/ipoList",
+    icon: "list",
+  },
 ];
