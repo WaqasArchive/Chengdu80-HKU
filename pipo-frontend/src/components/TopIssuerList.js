@@ -19,7 +19,6 @@ const styles = theme => ({
   },
 });
 
-<<<<<<< HEAD
 class InsetList extends React.Component {
 
   handleClick = (event, id) => {
@@ -49,27 +48,6 @@ class InsetList extends React.Component {
     );
 
   }
-=======
-function InsetList(props) {
-  const {issuers} = props;
-  return (
-    <List subheader={<ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Top 5 Issuers</ListSubheader>}>
-      <Divider style={{marginBottom: 20}} />
-      {issuers.map((name, index) => (
-        <ListItem
-          key={index}
-          button>
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <ListItemText
-            inset
-            primary={name} />
-        </ListItem>
-      ))}
-    </List>
-  );
->>>>>>> 0be2b413e060fb5e5facf04f9c469f072f704c3e
 }
 
 InsetList.propTypes = {
