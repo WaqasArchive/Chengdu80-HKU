@@ -167,6 +167,16 @@ class LoginSheet extends React.Component {
                 style={{width: 300}}
               />
             </Grid>
+            <Grid
+              item
+              className={classNames(classes.input)}>
+              <Button
+              variant="flat"
+                className={classes.button}
+                onClick={() => this.props.changePage("/login")}>
+                  Resend code?
+              </Button>
+           </Grid>
              <Grid
              item
              className={classNames(classes.input)}>
