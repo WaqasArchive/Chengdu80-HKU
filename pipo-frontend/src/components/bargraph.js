@@ -1,10 +1,8 @@
-import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { VictoryChart,
-VictoryBar} from 'victory';
+import React from "react";
+import {VictoryBar,
+  VictoryChart} from "victory";
 
 const sampleData = [
   {x: "July", y: 100},
@@ -17,12 +15,15 @@ const sampleData = [
 export default function Bargraph() {
   return (
     <Grid style={{padding: 5}}>
-      <ListSubheader align="left" font-weight>Investor Trend</ListSubheader>
+      <ListSubheader
+        align="left"
+        font-weight>Investor Trend
+      </ListSubheader>
       <VictoryChart
-      domainPadding={20}>
-      <VictoryBar
-      style={{ data: { fill: "#3f51b5" } }}
-      data={sampleData}/>
+        domainPadding={20}>
+        <VictoryBar
+          style={{data: {fill: "#3f51b5"}}}
+          data={sampleData}/>
       </VictoryChart>
     </Grid>
 

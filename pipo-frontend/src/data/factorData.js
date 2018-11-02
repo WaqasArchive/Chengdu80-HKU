@@ -25,6 +25,8 @@ for (const key in values) {
   factorDistributionData[creditDataKeys[key].name] = values[key];
   factorPerformanceData[creditDataKeys[key].name] = [];
   for (const option in values[key]) {
-    factorPerformanceData[creditDataKeys[key].name].push(months.map(month => ({x: month, y: getRandomArbitrary(800,1000)})));
+    if (option) {
+      factorPerformanceData[creditDataKeys[key].name].push(months.map(month => ({x: month, y: getRandomArbitrary(800,1000)})));
+    }
   }
 }

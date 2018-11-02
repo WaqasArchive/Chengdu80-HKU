@@ -1,7 +1,7 @@
 export default [
   [
     {
-      name: "Home",
+      name: "Dashboard",
       route: "/",
       icon: "home",
     },
@@ -13,14 +13,21 @@ export default [
       icon: "assignment",
     },
     {
-      name: "IPO List",
-      route: "/ipoList",
-      icon: "list",
-    },
-    {
       name: "Issuer Profile",
       route: "/issuer_profile",
       icon: "perm_identity",
+    },
+  ],
+  [
+    {
+      name: "Portfolio",
+      route: "/investor_portfolio",
+      icon: "settings",
+    },
+    {
+      name: "Invest in IPO",
+      route: "/ipoList",
+      icon: "list",
     },
   ],
 ];

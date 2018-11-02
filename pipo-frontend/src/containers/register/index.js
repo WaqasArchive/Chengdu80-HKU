@@ -1,10 +1,8 @@
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import Help from "@material-ui/icons/Help";
 import IconButton from "@material-ui/core/IconButton";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Paper from "@material-ui/core/Paper";
-import PersonAdd from "@material-ui/icons/PersonAdd";
 import PropTypes from "prop-types";
 import React from "react";
 import Send from "@material-ui/icons/Send";
@@ -12,10 +10,10 @@ import TextField from "@material-ui/core/TextField";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import classNames from "classnames";
+import {LinkedInLoginButton} from "react-social-login-buttons";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
 import {withStyles} from "@material-ui/core/styles";
-import {LinkedInLoginButton} from "react-social-login-buttons"
 
 const styles = theme => ({
   root: {
@@ -201,4 +199,3 @@ export default connect(
   null,
   mapDispatchToProps
 )(withStyles(styles)(RegisterSheet));
-

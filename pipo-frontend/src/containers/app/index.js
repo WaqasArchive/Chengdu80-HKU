@@ -41,6 +41,8 @@ export default () => (
         exact
         path="/investor_portfolio"
         component={portfolioInvestor} />
+      <Route
+        exact
         path="/issuer_profile"
         component={IssuerProfile} />
     </AppBar>
