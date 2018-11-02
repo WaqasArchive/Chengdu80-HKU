@@ -4,8 +4,9 @@ import IpoList from "../ipoList";
 import IssuerDetails from "../issuerDetails";
 import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
-import Register from "../register";
 import React from "react";
+import Register from "../register";
+import portfolioInvestor from "../portfolioInvestor";
 import {Route, Switch} from "react-router-dom";
 
 export default () => (
@@ -35,6 +36,10 @@ export default () => (
         exact
         path="/ipoList"
         component={IpoList} />
+      <Route
+        exact
+        path="/investor_portfolio"
+        component={portfolioInvestor} />
     </AppBar>
   </Switch>
 );
