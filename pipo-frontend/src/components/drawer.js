@@ -17,5 +17,10 @@ export default [
       route: "/ipoList",
       icon: "list",
     },
+    {
+      name: "Issuer Profile",
+      route: "/issuer_profile",
+      icon: "perm_identity",
+    },
   ],
 ];
