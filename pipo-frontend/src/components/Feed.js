@@ -26,7 +26,7 @@ const Feed = props => {
       <Grid
         container
         justify="left">
-        <ListSubheader align="left">Investee Feed</ListSubheader>
+        <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}} >Investee Feed</ListSubheader>
       </Grid>
       <Divider style={{marginBottom: 20}} />
       <div className={classes.fade}>

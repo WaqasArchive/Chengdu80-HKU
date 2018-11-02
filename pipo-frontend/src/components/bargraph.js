@@ -15,9 +15,9 @@ const sampleData = [
 export default function Bargraph() {
   return (
     <Grid style={{padding: 5}}>
-      <ListSubheader
+      <ListSubheader style={{fontWeight: 'bold', color: 'black'}}
         align="left"
-        font-weight>Investor Trend
+      >Investor Trend
       </ListSubheader>
       <VictoryChart
         domainPadding={20}>
