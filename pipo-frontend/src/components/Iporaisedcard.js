@@ -7,6 +7,9 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import {withStyles} from "@material-ui/core/styles";
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {push} from "connected-react-router";
 
 const styles = theme => ({
   cardHeader: {
@@ -25,10 +28,11 @@ const styles = theme => ({
   },
 });
 
-function ipocard() {
+function ipocard(props) {
+  const {classes} = props;
   return (
     <Grid>
-      <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Personal IPOs</ListSubheader>
+      <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Trending IPOs</ListSubheader>
       <Divider style={{marginBottom: 20}} />
       <CardContent>
         <div>
@@ -49,8 +53,9 @@ function ipocard() {
         <Button
           fullWidth
           color="primary"
-          variant="contained">
-          IPO Now!
+          variant="contained"
+          onClick={() => props.changePage("/ipoList")}>
+          Invest Now!
 
         </Button>
       </CardActions>
@@ -59,4 +64,15 @@ function ipocard() {
 
 }
 
-export default withStyles(styles)(ipocard);
+ipocard.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const mapDispatchToProps = {
+  changePage: (path) => push(path),
+};
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withStyles(styles)(ipocard));
