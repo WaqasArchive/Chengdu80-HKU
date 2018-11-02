@@ -2,7 +2,9 @@ from django.db import models
 
 # Create your models here.
 # api/models.py
-class Note(models.Model):
-    title = models.CharField(max_length=200)
-    body = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
+class Bid(models.Model):
+    issuer_id = models.CharField(max_length=200)
+    investor_id = models.CharField(max_length=200)
+    bid_price = models.IntegerField()
+    no_of_shares = models.IntegerField()
+    
