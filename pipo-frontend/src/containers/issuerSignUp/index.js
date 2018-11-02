@@ -1,8 +1,8 @@
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
-import Loader from "react-loader-spinner";
 import MenuItem from "@material-ui/core/MenuItem";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
@@ -14,6 +14,7 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
+import purple from "@material-ui/core/colors/purple";
 import steps from "./steps";
 import {Formik} from "formik";
 import {connect} from "react-redux";
@@ -107,16 +108,6 @@ class IssuerForm extends React.Component {
           className={classes.paper}
           elevation={1}>
           <Formik
-            validate={values => {
-              const errors = {};
-              for (const key in values) {
-                if (!values[key]) {
-                  errors[key] = "Required";
-                }
-              }
-              console.log(errors);
-              return errors;
-            }}
             onSubmit={(values, {setSubmitting}) => {
               console.log(values);
               createIssuer(values);
@@ -146,7 +137,7 @@ class IssuerForm extends React.Component {
                       });
                     }
                     return (
-                      <Step key={step.label}>
+                      !issuerSignUp.processing && <Step key={step.label}>
                         <StepLabel>{step.label}</StepLabel>
                         <StepContent>
                           <Typography>
@@ -157,6 +148,8 @@ class IssuerForm extends React.Component {
                                 direction="column"
                                 spacing={16}
                                 style={{paddingBottom: 20}}>
+                                { activeStep === 3 &&
+                                  <p>Our recommended price: ${issuerSignUp.createdIssuerId}</p>}
                                 {
                                   step.input.map(field => (
                                     <Grid
@@ -198,11 +191,10 @@ class IssuerForm extends React.Component {
                         Back
                               </Button>
                               <Button
-                                disabled={activeStep === steps.length - 1 && JSON.stringify(errors) !== JSON.stringify({})}
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
-                                  if (activeStep === steps.length - 1 && JSON.stringify(errors) === JSON.stringify({})) {
+                                  if (activeStep === 2 && JSON.stringify(errors) === JSON.stringify({})) {
                                     this.setState(state => ({
                                       activeStep: state.activeStep + 1,
                                     }));
@@ -218,7 +210,7 @@ class IssuerForm extends React.Component {
                             </div>
                           </div>
                         </StepContent>
-                      </Step>
+                                                  </Step>
                     );
                   })}
                 </Stepper>
@@ -226,13 +218,8 @@ class IssuerForm extends React.Component {
             )}
           </Formik>
           {issuerSignUp.processing &&
-            <Loader
-              style={{textAlign:"center"}}
-              type="Puff"
-              color="#3f51b5"
-              height="100"
-              width="100"
-            />}
+            <CircularProgress
+              size={50} />}
           {activeStep === steps.length && issuerSignUp.createdIssuerId && (
             <Paper
               square

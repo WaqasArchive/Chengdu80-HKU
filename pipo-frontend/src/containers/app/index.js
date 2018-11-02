@@ -3,6 +3,7 @@ import Home from "../home";
 import IpoList from "../ipoList";
 import IssuerDetails from "../issuerDetails";
 import IssuerProfile from "../IssuerProfile";
+import IssuerSetPrice from "../IssuerSetPrice";
 import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
 import React from "react";
@@ -45,6 +46,10 @@ export default () => (
         exact
         path="/issuer_profile"
         component={IssuerProfile} />
+      <Route
+        exact
+        path="/issuer_setPrice"
+        component={IssuerSetPrice} />
     </AppBar>
   </Switch>
 );

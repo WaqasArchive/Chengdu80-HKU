@@ -9,7 +9,7 @@ function PlaceBid() {
       <Typography
         variant="h6"
         gutterBottom>
-        Place your Bid
+        Choose Bid
       </Typography>
       <Grid
         container

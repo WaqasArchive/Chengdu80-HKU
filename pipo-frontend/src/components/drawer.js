@@ -17,6 +17,11 @@ export default [
       route: "/issuer_profile",
       icon: "perm_identity",
     },
+    {
+      name: "Issuer SetAskPrice",
+      route: "/issuer_setPrice",
+      icon: "perm_identity",
+    },
   ],
   [
     {

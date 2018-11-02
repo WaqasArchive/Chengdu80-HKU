@@ -20,7 +20,10 @@ export function signUpIssuer(issuerDetails) {
         }),
       ))
       .catch(function (error) {
-        console.log(error);
+        dispatch({
+          type: ISSUER_SIGNUP_ERROR,
+          data: error,
+        });
       });
   });
 }
