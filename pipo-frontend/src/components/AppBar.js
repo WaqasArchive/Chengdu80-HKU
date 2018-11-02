@@ -256,31 +256,29 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            {drawerItems.map(item => (
-              <NavLink
-                key={item.route}
-                to={item.route}
-                style={{textDecoration: "none"}}>
-                <ListItem
-                  button
-                  key={item.route}
-                  selected={this.props.location.pathname === item.route}
-                >
-                  <Icon className={classes.icon}>{item.icon}</Icon>
-                  <ListItemText primary={item.name} />
-                </ListItem>
-              </NavLink>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem
-                button
-                key={text}>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+            {drawerItems.map((drawer,index) => (
+              <div key={index}>
+                <List>
+                  {
+                    drawer.map(item => (
+                      <NavLink
+                        key={item.route}
+                        to={item.route}
+                        style={{textDecoration: "none"}}>
+                        <ListItem
+                          button
+                          key={item.route}
+                          selected={this.props.location.pathname === item.route}
+                        >
+                          <Icon className={classes.icon}>{item.icon}</Icon>
+                          <ListItemText primary={item.name} />
+                        </ListItem>
+                      </NavLink>
+                    ))
+                  }
+                </List>
+                {(index !== drawerItems.length - 1) && <Divider />}
+              </div>
             ))}
           </List>
         </Drawer>

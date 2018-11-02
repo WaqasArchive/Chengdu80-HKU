@@ -1,6 +1,4 @@
-import About from "../about";
 import AppBar from "../../components/AppBar";
-import Counter from "../counter";
 import Home from "../home";
 import IpoList from "../ipoList";
 import IssuerDetails from "../issuerDetails";
@@ -22,15 +20,7 @@ export default () => (
         component={Home} />
       <Route
         exact
-        path="/about"
-        component={About} />
-      <Route
-        exact
-        path="/counter"
-        component={Counter} />
-      <Route
-        exact
-        path="/issuer_details"
+        path="/issuer_details/:id"
         component={IssuerDetails} />
       <Route
         exact
