@@ -19,10 +19,11 @@ import {withStyles} from "@material-ui/core/styles";
 const styles = theme => ({
   card: {
     maxWidth: 240,
+
   },
   media: {
     height: 0,
-    paddingTop: "56.25%", // 16:9
+    paddingTop: "86.25%", // 16:9
   },
   actions: {
     display: "flex",
@@ -60,6 +61,7 @@ class FeedItem extends React.Component {
         <CardHeader
           avatar={
             <Avatar
+              src="/static/images/cards/man.png"
               aria-label="Recipe"
               className={classes.avatar}>
               {item.name[0]}
