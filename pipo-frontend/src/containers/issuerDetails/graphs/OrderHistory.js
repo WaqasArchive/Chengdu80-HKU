@@ -64,7 +64,7 @@ export default class App extends React.Component {
 					</VictoryChart>
 					<VictoryChart
 						padding={{ top: 10, left: 50, right: 50, bottom: 50 }}
-						width={700} height={200} scale={{ x: "time" }}
+						width={600} height={100} scale={{ x: "time" }}
 						containerComponent={
 							<VictoryBrushContainer
 								brushDimension="x"
