@@ -2,10 +2,11 @@ import AppBar from "../../components/AppBar";
 import Home from "../home";
 import IpoList from "../ipoList";
 import IssuerDetails from "../issuerDetails";
+import IssuerProfile from "../IssuerProfile";
 import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
-import Register from "../register";
 import React from "react";
+import Register from "../register";
 import {Route, Switch} from "react-router-dom";
 
 export default () => (
@@ -35,6 +36,10 @@ export default () => (
         exact
         path="/ipoList"
         component={IpoList} />
+      <Route
+        exact
+        path="/issuer_profile"
+        component={IssuerProfile} />
     </AppBar>
   </Switch>
 );
