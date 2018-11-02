@@ -4,6 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import InvesterData from "../../data/InvesterData";
 import IssuerCard from "../../components/IssuerCard";
 import LineData from "../../data/LineChart";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
@@ -18,7 +20,7 @@ const styles = theme => ({
   appBarSpacer: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit,
     height: "100vh",
     overflow: "auto",
   },
@@ -27,6 +29,10 @@ const styles = theme => ({
   },
   paper: {
     marginTop: 25,
+  },
+  row: {
+    display: "flex",
+    justifyContent: "center",
   },
 });
 
@@ -42,7 +48,8 @@ class Dashboard extends React.Component {
           <Grid
             container
             className={classes.root}
-            spacing={24}>
+            spacing={24}
+            justify="space-evenly">
             <Grid
               item
               xs={12}>
@@ -69,16 +76,6 @@ class Dashboard extends React.Component {
             </Grid>
             <Grid
               item
-              xs={12}>
-              <Typography
-                variant="h4"
-                gutterBottom
-                component="h2">
-             Top Bids
-              </Typography>
-            </Grid>
-            <Grid
-              item
               xs={6}>
               <div className={classes.tableContainer}>
                 <SimpleTable rows={InvesterData}/>
@@ -91,26 +88,51 @@ class Dashboard extends React.Component {
                 <Paper
                   className={classes.paper}
                   elevation={1}>
-                  <Typography
-                    variant="h6"
-                    gutterBottom>
-                    Money Raised
-                  </Typography>
-                  <Divider />
-                  <br />
-                  <Typography
-                    variant="h3"
-                    align="center"
-                    gutterBottom>
-                    $17253
-                  </Typography>
-                  <br />
-                  <Typography
-                    variant="h6"
-                    align="center"
-                    gutterBottom>
+                  <Grid
+                    container
+                    className={classes.root}
+                    spacing={24}
+                    justify="space-evenly">
+                    <Grid
+                      item
+                      xs={12}>
+                      <ListSubheader align="left">Money Raised</ListSubheader>
+                      <Divider />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}>
+                      <Typography
+                        variant="h3"
+                        align="center"
+                        gutterBottom>
+                    $17,253
+                      </Typography>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={10}>
+                      <Typography
+                        color="textSecondary">
+          Target: $30,000
+                      </Typography>
+                      <LinearProgress
+                        variant="determinate"
+                        value="60" />
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}>
+                      <Typography
+                        variant="h6"
+                        align="center"
+                        gutterBottom>
                     Ask Price: $17.28
-                  </Typography>
+                      </Typography>
+                      <br />
+                      <br />
+                    </Grid>
+                  </Grid>
                 </Paper>
               </div>
             </Grid>
