@@ -59,7 +59,7 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}} >Elizabeth Rose</ListSubheader>
+        <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}} >Henry Charles</ListSubheader>
         <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
@@ -67,7 +67,7 @@ function SimpleCard(props) {
           <div className={classes.row}>
             <Avatar
               alt="Elizabeth Rose"
-              src="/static/images/cards/girl.png"
+              src="/static/images/cards/man.png"
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
           </div>
