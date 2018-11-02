@@ -28,7 +28,7 @@ const styles = theme => ({
 function ipocard() {
   return (
     <Grid>
-      <ListSubheader align="left">Personal IPOs</ListSubheader>
+      <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Personal IPOs</ListSubheader>
       <Divider style={{marginBottom: 20}} />
       <CardContent>
         <div>

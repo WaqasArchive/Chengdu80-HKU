@@ -20,7 +20,7 @@ const styles = theme => ({
 function InsetList(props) {
   const {issuers} = props;
   return (
-    <List subheader={<ListSubheader align="left">Top 5 Issuers</ListSubheader>}>
+    <List subheader={<ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Top 5 Issuers</ListSubheader>}>
       <Divider style={{marginBottom: 20}} />
       {issuers.map((name, index) => (
         <ListItem
