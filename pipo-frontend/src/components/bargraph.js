@@ -1,41 +1,29 @@
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
-import React from "react";
+import React, { Component } from 'react';
+import { render } from 'react-dom';
+import { VictoryChart,
+VictoryBar} from 'victory';
 
-import {
-  HorizontalGridLines,
-  VerticalBarSeries,
-  VerticalGridLines,
-  XAxis,
-  XYPlot,
-  YAxis,
-} from "react-vis";
-
-const sampleData = [{x: "Oct", y: 100},
-  {x: "Nov", y: 230},
-  {x: "Dec", y: 420}];
+const sampleData = [
+  {x: "July", y: 100},
+  {x: "Aug", y: 230},
+  {x: "Sept", y: 420},
+  {x: "Oct", y: 100},
+  {x: "Nov", y: 200},
+  {x: "Dec", y: 500}];
 
 export default function Bargraph() {
   return (
     <Grid style={{padding: 5}}>
-      <ListSubheader align="left">Investor Trend</ListSubheader>
-      <Divider style={{marginBottom: 20}} />
-      <XYPlot
-        xType="ordinal"
-        width={250}
-        height={250}
-        style={{marginLeft: 20}}>
-        <VerticalGridLines />
-        <HorizontalGridLines />
-        <XAxis
-          tickLabelAngle={-45}
-        />
-        <YAxis />
-        <VerticalBarSeries
-          data={sampleData}
-        />
-      </XYPlot>
+      <ListSubheader align="left" font-weight>Investor Trend</ListSubheader>
+      <VictoryChart
+      domainPadding={20}>
+      <VictoryBar
+      style={{ data: { fill: "#3f51b5" } }}
+      data={sampleData}/>
+      </VictoryChart>
     </Grid>
 
   );

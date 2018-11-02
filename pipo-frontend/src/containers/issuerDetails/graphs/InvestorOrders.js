@@ -37,7 +37,7 @@ export default class App extends React.Component {
           domainPadding={{ x: 50, y: [0, 20] }}
           scale={{ x: "ordinal" }}
         >
-          <VictoryBar
+          <VictoryBar 
             dataComponent={
               <Bar events={{ onMouseOver: handleMouseOver }}/>
             }
