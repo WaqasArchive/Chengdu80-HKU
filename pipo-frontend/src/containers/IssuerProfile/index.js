@@ -53,11 +53,12 @@ class Dashboard extends React.Component {
             <Grid
               item
               xs={12}>
-              <Typography
+              <Typography 
+                style={{fontWeight: 'bold', color: 'black'}}
                 variant="h4"
                 gutterBottom
                 component="h2">
-              Henry Charles
+                Henry Charles 
               </Typography>
             </Grid>
             <Grid
