@@ -11,6 +11,7 @@
     "history": "^4.7.2",
     "material-design-icons": "^3.0.1",
     "react": "^16.6.0",
+    "react-d3-treemap": "^1.0.14",
     "react-dom": "^16.6.0",
     "react-google-recaptcha": "^1.0.4",
     "react-loader-spinner": "^2.0.6",

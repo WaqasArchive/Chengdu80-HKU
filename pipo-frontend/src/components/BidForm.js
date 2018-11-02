@@ -1,7 +1,6 @@
 import BidData from "../data/bidData";
 import Button from "@material-ui/core/Button";
 import ConfirmBid from "./ConfirmBid";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Paper from "@material-ui/core/Paper";
 import PlaceBid from "./PlaceBid";
 import PropTypes from "prop-types";
@@ -9,7 +8,6 @@ import React from "react";
 import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
-import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import withStyles from "@material-ui/core/styles/withStyles";
 

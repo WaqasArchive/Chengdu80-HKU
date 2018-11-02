@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import { render } from 'react-dom';
-import { VictoryChart,
-VictoryBar,
-VictoryZoomContainer,
-VictoryLine,
-VictoryBrushContainer,
-VictoryAxis,
-Bar } from 'victory';
-import data from './data.js';
+import React from "react";
+import data from "./data.js";
+import {Bar,
+  VictoryAxis,
+  VictoryBar,
+  VictoryChart,
+} from "victory";
 
 export default class App extends React.Component {
   constructor() {
@@ -15,8 +12,8 @@ export default class App extends React.Component {
     this.state = {
       clicked: false,
       style: {
-        data: { fill: "tomato" }
-      }
+        data: {fill: "tomato"},
+      },
     };
   }
 
@@ -27,38 +24,41 @@ export default class App extends React.Component {
       this.setState({
         clicked,
         style: {
-          data: { fill: fillColor }
-        }
+          data: {fill: fillColor},
+        },
       });
     };
     return (
       <div>
-        <VictoryChart height={400} width={400}
-          domainPadding={{ x: 50, y: [0, 20] }}
-          scale={{ x: "ordinal" }}
+        <VictoryChart
+          height={400}
+          width={400}
+          domainPadding={{x: 50, y: [0, 20]}}
+          scale={{x: "ordinal"}}
         >
-          <VictoryBar 
+          <VictoryBar
             dataComponent={
-              <Bar events={{ onMouseOver: handleMouseOver }}/>
+              <Bar events={{onMouseOver: handleMouseOver}}/>
             }
             style={this.state.style}
             data={data.map(item => ({x: item.p, y: item.q}))}
           />
-           <VictoryAxis
-              label="Bidding Price"
-              style={{
-                axisLabel: { padding: 35 }
-              }}
-            />
-          
-          <VictoryAxis dependentAxis
+          <VictoryAxis
+            label="Bidding Price"
+            style={{
+              axisLabel: {padding: 35},
+            }}
+          />
+
+          <VictoryAxis
+            dependentAxis
             label="Quantity"
             style={{
-              axisLabel: { padding: 35 }
+              axisLabel: {padding: 35},
             }}
           />
         </VictoryChart>
       </div>
     );
   }
- }
+}

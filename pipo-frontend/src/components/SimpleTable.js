@@ -1,8 +1,10 @@
+import Divider from "@material-ui/core/Divider";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
 import KeyboardArrowRight from "@material-ui/icons/KeyboardArrowRight";
 import LastPageIcon from "@material-ui/icons/LastPage";
+import ListSubheader from "@material-ui/core/ListSubheader";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
@@ -95,10 +97,7 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, {withTheme: true
 );
 
 const CustomTableCell = withStyles(theme => ({
-  head: {
-    backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-  },
+
   body: {
     fontSize: 14,
   },
@@ -140,6 +139,8 @@ class SimpleTable extends React.Component {
     return (
 
       <Paper className={classes.root}>
+        <ListSubheader align="left">Top Investors</ListSubheader>
+        <Divider />
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
