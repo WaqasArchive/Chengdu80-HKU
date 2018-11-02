@@ -16,6 +16,7 @@ import {connect} from "react-redux";
 import {push} from "connected-react-router";
 import {withStyles} from "@material-ui/core/styles";
 import {LinkedInLoginButton} from "react-social-login-buttons"
+import Typography from '@material-ui/core/Typography';
 
 const styles = theme => ({
   root: {
@@ -80,6 +81,13 @@ class LoginSheet extends React.Component {
               className={classNames(classes.LinkedInLoginButton)}>
               <LinkedInLoginButton />
             </Grid>
+            <Grid
+              item
+              className={classNames(classes.textField)}>
+              <Typography variant="overline" gutterbottom align="center" style={{paddingTop: 25}}>
+              OR
+              </Typography>
+              </Grid>
             <Grid
               item
               className={classNames(classes.input)}>
