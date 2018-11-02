@@ -35,7 +35,7 @@ const Feed = props => {
           justify="space-around"
           spacing={8}
           style={{
-            maxHeight: 475,
+            maxHeight: 400,
             overflow: "auto",
             overflowY: "scroll",
           }}

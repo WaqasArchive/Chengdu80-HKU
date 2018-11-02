@@ -66,8 +66,8 @@ function SimpleCard(props) {
           component="h2">
           <div className={classes.row}>
             <Avatar
-              alt="Henry Charles"
-              src="/static/images/avatar1.jpg"
+              alt="Elizabeth Rose"
+              src="/static/images/cards/girl.png"
               className={classNames(classes.avatar, classes.bigAvatar)}
             />
           </div>
