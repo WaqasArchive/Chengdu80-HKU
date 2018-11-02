@@ -107,14 +107,25 @@ class IssuerForm extends React.Component {
           className={classes.paper}
           elevation={1}>
           <Formik
-            initialValues={{age: 2}}
+            validate={values => {
+              const errors = {};
+              for (const key in values) {
+                if (!values[key]) {
+                  errors[key] = "Required";
+                }
+              }
+              console.log(errors);
+              return errors;
+            }}
             onSubmit={(values, {setSubmitting}) => {
+              console.log(values);
               createIssuer(values);
               setSubmitting(false);
             }}
           >
             {({
               values,
+              errors,
               handleChange,
               handleSubmit,
               isSubmitting,
@@ -187,10 +198,11 @@ class IssuerForm extends React.Component {
                         Back
                               </Button>
                               <Button
+                                disabled={activeStep === steps.length - 1 && JSON.stringify(errors) !== JSON.stringify({})}
                                 variant="contained"
                                 color="primary"
                                 onClick={() => {
-                                  if (activeStep === steps.length - 1) {
+                                  if (activeStep === steps.length - 1 && JSON.stringify(errors) === JSON.stringify({})) {
                                     this.setState(state => ({
                                       activeStep: state.activeStep + 1,
                                     }));
