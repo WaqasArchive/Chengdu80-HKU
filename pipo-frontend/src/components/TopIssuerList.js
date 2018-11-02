@@ -7,6 +7,8 @@ import ListSubheader from "@material-ui/core/ListSubheader";
 import PropTypes from "prop-types";
 import React from "react";
 import StarIcon from "@material-ui/icons/Star";
+import {connect} from "react-redux";
+import {push} from "connected-react-router";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -17,29 +19,43 @@ const styles = theme => ({
   },
 });
 
-function InsetList(props) {
-  const {issuers} = props;
-  return (
-    <List subheader={<ListSubheader align="left">Top 5 Issuers</ListSubheader>}>
-      <Divider style={{marginBottom: 20}} />
-      {issuers.map((name, index) => (
-        <ListItem
-          key={index}
-          button>
-          <ListItemIcon>
-            <StarIcon />
-          </ListItemIcon>
-          <ListItemText
-            inset
-            primary={name} />
-        </ListItem>
-      ))}
-    </List>
-  );
+class InsetList extends React.Component {
+
+  handleClick = (event, id) => {
+    console.log(id);
+    this.props.changePage(id);
+  };
+
+  render () {
+    const {issuers} = this.props;
+    return (
+      <List subheader={<ListSubheader align="left">Top 5 Issuers</ListSubheader>}>
+        <Divider style={{marginBottom: 20}} />
+        {issuers.map((name, index) => (
+          <ListItem
+            key={index}
+            button
+            onClick={event => this.handleClick(event,index)}>
+            <ListItemIcon>
+              <StarIcon />
+            </ListItemIcon>
+            <ListItemText
+              inset
+              primary={name} />
+          </ListItem>
+        ))}
+      </List>
+    );
+
+  }
 }
 
 InsetList.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+const mapStateToProps = null;
 
-export default withStyles(styles)(InsetList);
+const mapDispatchToProps = {
+  changePage: (id) => push(`/issuer_details/${id}`),
+};
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(InsetList));

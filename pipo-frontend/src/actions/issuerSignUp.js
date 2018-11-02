@@ -16,7 +16,7 @@ export function signUpIssuer(issuerDetails) {
       .then(response => resolve(
         dispatch({
           type: ISSUER_SIGNUP_SUCCESS,
-          data: response,
+          data: response.reference_price,
         }),
       ))
       .catch(function (error) {

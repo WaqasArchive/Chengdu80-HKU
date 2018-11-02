@@ -188,4 +188,19 @@ export default [
         type: "number",
       },
     ],
+  },
+  {
+    "label": "Select Bid price",
+    "input":[
+      {
+        id: "bid_price",
+        name: "Bid Price",
+        type: "number",
+      },
+      {
+        id: "no_of_shares",
+        name: "Number of shares",
+        type: "number",
+      },
+    ],
   }];
