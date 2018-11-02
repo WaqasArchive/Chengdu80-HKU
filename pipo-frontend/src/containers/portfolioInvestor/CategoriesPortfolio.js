@@ -1,3 +1,4 @@
+import Chip from "@material-ui/core/Chip";
 import Paper from "@material-ui/core/Paper";
 import ParamPie from "./ParamPie";
 import PropTypes from "prop-types";
@@ -20,10 +21,9 @@ function getRandomColor() {
   return color;
 }
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     width: "100%",
-    marginTop: theme.spacing.unit * 3,
     overflowX: "auto",
   },
   table: {
@@ -47,31 +47,43 @@ for (const factor in factorDistributionData) {
 
 function SimpleTable(props) {
   const {classes} = props;
-
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
             <TableCell>Factor</TableCell>
-            <TableCell>Performance</TableCell>
+            <TableCell>Best Performing Sector</TableCell>
+            <TableCell>Average Returns (Past 12 Month)</TableCell>
             <TableCell>Distribution</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map(row => {
+            let max = 0;
+            let max_key = "";
+            for (const key in row.share) {
+              if (row.share[key] > max) {
+                max = row.share[key];
+                max_key = key;
+              }
+            }
             return (
               <TableRow
                 key={row.id}>
-                <TableCell
-                  component="th"
-                  scope="row">
+                <TableCell>
                   {row.factor}
+                </TableCell>
+                <TableCell>
+                  <Chip
+                    label={max_key}
+                    color="primary"
+                    variant="outlined"/>
                 </TableCell>
                 <TableCell style={{width: 400}}>
                   <VictoryChart
-                    minDomain={{y: 700}}>
-                    {row.performance.slice(0,3).map((factorData,index) => <VictoryLine
+                    maxDomain={{y: 105}}>
+                    {row.performance.slice(0,6).map((factorData,index) => <VictoryLine
                       key={index}
                       style={{
                         data: {

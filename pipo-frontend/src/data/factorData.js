@@ -1,9 +1,6 @@
 import creditData from "./creditData";
 import creditDataKeys from "./creditDataKeys";
-
-function getRandomArbitrary(min, max) {
-  return Math.round((Math.random() * (max - min) + min) * 100) / 100;
-}
+import {getRandomData} from "./entityData";
 
 const values = {};
 for (const key in creditDataKeys) {
@@ -18,7 +15,7 @@ creditData.forEach(item => {
   }
 });
 
-const months = ["Nov", "Dec", "Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct"];
+//const months = ["Nov", "Dec", "Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct"];
 export const factorDistributionData = {};
 export const factorPerformanceData = {};
 for (const key in values) {
@@ -26,7 +23,10 @@ for (const key in values) {
   factorPerformanceData[creditDataKeys[key].name] = [];
   for (const option in values[key]) {
     if (option) {
-      factorPerformanceData[creditDataKeys[key].name].push(months.map(month => ({x: month, y: getRandomArbitrary(800,1000)})));
+      factorPerformanceData[creditDataKeys[key].name].push(getRandomData(365,80,20,100,
+        [{length: 7, variance: 50, noise: 1, trend: 0},
+          {length: 365, variance: 30, noise: 1, trend: 0},
+          {length: 700, variance: 2, noise: 0, trend: 100}]).map((i,index) => ({x: index, y: i})));
     }
   }
 }
