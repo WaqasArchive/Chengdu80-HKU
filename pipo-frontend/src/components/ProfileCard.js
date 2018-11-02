@@ -59,7 +59,7 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <ListSubheader align="left">Henry Charles</ListSubheader>
+        <ListSubheader align="left">Elizabeth Rose</ListSubheader>
         <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
@@ -85,9 +85,9 @@ function SimpleCard(props) {
         <Typography
           className={classes.pos}
           color="textSecondary">
-          Add more details <br/>
-          Know your value <br/>
-          Make your dreams true!
+          ✔️ Add more details <br/>
+          ✔️ Know your value <br/>
+          ✔️ Make your dreams true!
         </Typography>
       </CardContent>
       <CardActions>
