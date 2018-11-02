@@ -7,6 +7,7 @@ import IssuerSignUp from "../issuerSignUp";
 import Login from "../login";
 import React from "react";
 import Register from "../register";
+import portfolioInvestor from "../portfolioInvestor";
 import {Route, Switch} from "react-router-dom";
 
 export default () => (
@@ -38,6 +39,8 @@ export default () => (
         component={IpoList} />
       <Route
         exact
+        path="/investor_portfolio"
+        component={portfolioInvestor} />
         path="/issuer_profile"
         component={IssuerProfile} />
     </AppBar>
