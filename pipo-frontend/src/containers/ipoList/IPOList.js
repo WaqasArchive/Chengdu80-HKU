@@ -13,6 +13,8 @@ import TableFooter from "@material-ui/core/TableFooter";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import {connect} from "react-redux";
+import {push} from "connected-react-router";
 import {withStyles} from "@material-ui/core/styles";
 
 const actionsStyles = theme => ({
@@ -125,6 +127,11 @@ class CustomizedTable extends React.Component {
     page: 0,
   }
 
+  handleClick = (event, id) => {
+    console.log(id);
+    this.props.changePage(id);
+  };
+
   handleChangePage = (event, page) => {
     this.setState({page});
   };
@@ -148,6 +155,7 @@ class CustomizedTable extends React.Component {
             {rows.map((row, index) => {
               return (
                 <TableRow
+                  onClick={event => this.handleClick(event,row.id)}
                   className={classes.row}
                   key={index}>
                   <CustomTableCell
@@ -184,4 +192,10 @@ CustomizedTable.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(CustomizedTable);
+const mapStateToProps = null;
+
+const mapDispatchToProps = {
+  changePage: (id) => push(`/issuer_details/${id}`),
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(CustomizedTable));

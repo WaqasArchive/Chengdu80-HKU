@@ -4,8 +4,8 @@ import OrderHistory from "./graphs/OrderHistory";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
+import{VictoryLabel} from "victory";
 import {withStyles} from "@material-ui/core/styles";
-import{VictoryLabel} from 'victory'
 const styles = theme => ({
   root: {
     flexGrow: 1,
@@ -19,7 +19,7 @@ const styles = theme => ({
 });
 
 function IssuerDetails(props) {
-  const {classes} = props;
+  const {classes, match} = props;
 
   return (
     <Grid
@@ -29,17 +29,24 @@ function IssuerDetails(props) {
       <Grid
         item
         xs={12}>
-        <h1>Issuer Details</h1>
+        <h1>Issuer Details {match.params.id && match.params.id}</h1>
       </Grid>
       <Grid item>
         <Paper className={classes.paper}>
-          <VictoryLabel text={"Investor Orders"} x={110} y={30} size = '30px'/>
+          <VictoryLabel
+            text={"Investor Orders"}
+            x={110}
+            y={30}
+            size="30px"/>
           <InvestorOrders />
         </Paper>
       </Grid>
       <Grid item>
         <Paper className={classes.paper}>
-          <VictoryLabel text={"Order History"} x={110} y={30} />
+          <VictoryLabel
+            text={"Order History"}
+            x={110}
+            y={30} />
           <OrderHistory />
         </Paper>
       </Grid>

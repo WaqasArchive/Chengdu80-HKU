@@ -35,7 +35,7 @@ function Home(props) {
       <Grid
         item
         xs={12}>
-        <h1 style={{marginBottom:0}}>Home</h1>
+        <h1 style={{marginBottom:0}}>Dashboard</h1>
       </Grid>
       <Grid
         item

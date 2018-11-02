@@ -31,7 +31,7 @@ function SimpleExpansionPanel(props) {
       <Grid
         item
         xs={12}>
-        <h1>Upcoming IPOs</h1>
+        <h1>Upcoming Personal IPOs</h1>
       </Grid>
       <Grid
         item
