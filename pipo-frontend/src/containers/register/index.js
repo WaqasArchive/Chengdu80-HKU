@@ -15,6 +15,7 @@ import classNames from "classnames";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
 import {withStyles} from "@material-ui/core/styles";
+import {LinkedInLoginButton} from "react-social-login-buttons"
 
 const styles = theme => ({
   root: {
@@ -72,6 +73,11 @@ class RegisterSheet extends React.Component {
           <Paper
             className={classes.root}
             elevation={1}>
+            <Grid
+              item
+              className={classNames(classes.LinkedInLoginButton)}>
+              <LinkedInLoginButton />
+            </Grid>
             <Grid
               item
               className={classNames(classes.input)}>
