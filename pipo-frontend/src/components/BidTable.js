@@ -1,4 +1,6 @@
+import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
+import DoneIcon from "@material-ui/icons/Done";
 import FirstPageIcon from "@material-ui/icons/FirstPage";
 import IconButton from "@material-ui/core/IconButton";
 import KeyboardArrowLeft from "@material-ui/icons/KeyboardArrowLeft";
@@ -125,7 +127,6 @@ class SimpleTable extends React.Component {
   }
 
   handleClick = (event, id) => {
-    console.log(id);
     this.props.changePage(id);
   };
 
@@ -141,16 +142,16 @@ class SimpleTable extends React.Component {
       <Paper className={classes.root}>
         <ListSubheader
           align="left"
-          style={{fontWeight: "bold"}}>Top Investors
+          style={{fontWeight: "bold"}}>Recent Bids
         </ListSubheader>
         <Divider />
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              <CustomTableCell>Investor ID</CustomTableCell>
-              <CustomTableCell numeric>Amount Invested</CustomTableCell>
+              <CustomTableCell>Investor Name</CustomTableCell>
               <CustomTableCell numeric>Bid Price</CustomTableCell>
               <CustomTableCell numeric>Shares Requested</CustomTableCell>
+              <CustomTableCell>Status</CustomTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -162,11 +163,25 @@ class SimpleTable extends React.Component {
                   <CustomTableCell
                     component="th"
                     scope="row">
-                    {row.id}
+                    {row.investor_name}
                   </CustomTableCell>
-                  <CustomTableCell numeric>{row.inv_amount}</CustomTableCell>
-                  <CustomTableCell numeric>{row.bid_price}</CustomTableCell>
-                  <CustomTableCell numeric>{row.shares}</CustomTableCell>
+                  <CustomTableCell numeric>{row.price}</CustomTableCell>
+                  <CustomTableCell numeric>{row.no_of_shares}</CustomTableCell>
+                  <CustomTableCell>
+                    {row.status && <Chip
+                      label={row.status}
+                      clickable
+                      className={classes.chip}
+                      color="primary"
+                      deleteIcon={<DoneIcon />}
+                    />}
+                    {!row.status && <Chip
+                      label={row.status}
+                      className={classes.chip}
+                      color="secondary"
+                    />
+                    }
+                  </CustomTableCell>
                 </TableRow>
               );
             })}

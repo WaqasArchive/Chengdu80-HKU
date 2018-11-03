@@ -148,7 +148,7 @@ class CustomizedTable extends React.Component {
             <TableRow>
               <CustomTableCell>Person Name</CustomTableCell>
               <CustomTableCell>Symbol</CustomTableCell>
-              <CustomTableCell numeric>Ref Price</CustomTableCell>
+              <CustomTableCell numeric>Share Price</CustomTableCell>
               <CustomTableCell numeric>Shares</CustomTableCell>
             </TableRow>
           </TableHead>

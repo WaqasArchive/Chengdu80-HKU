@@ -1,16 +1,15 @@
 import Divider from "@material-ui/core/Divider";
-import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
 import {VictoryBar,
   VictoryChart} from "victory";
-import {throws} from "assert";
 
 function Bargraph(props) {
   const {sampleData} = props;
   return (
-    <Grid >
+    <Paper >
       <ListSubheader
         style={{fontWeight: "bold"}}
         align="left"
@@ -34,7 +33,7 @@ function Bargraph(props) {
           }}
         />
       </VictoryChart>
-    </Grid>
+    </Paper>
 
   );
 }

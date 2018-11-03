@@ -196,6 +196,7 @@ def getBidsInvestor(request):
                                 "ipo_symbol": bid.ipo.symbol,
                                 "investor_name": bid.investor.name,
                                 "price": bid.bid_price,
+                                "no_of_shares": bid.no_of_shares,
                                 "status": status[bid.status]
                       })
                 return JsonResponse(response, safe=False)
@@ -215,9 +216,9 @@ def getBidsIssuer(request):
                       response.append({
                                 "ipo_name": bid.ipo.issuer.name,
                                 "ipo_symbol": bid.ipo.symbol,
-                                "price": bid.bid_price,
                                 "investor_name": bid.investor.name,
+                                "price": bid.bid_price,
+                                "no_of_shares": bid.no_of_shares,
                                 "status": status[bid.status]
                       })
                 return JsonResponse(response, safe=False)
-

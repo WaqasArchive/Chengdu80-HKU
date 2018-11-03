@@ -149,7 +149,7 @@ class IssuerForm extends React.Component {
                       if (step.input) {
                         step.input.forEach(field => {
                           if (!values[field.id]) {
-                            values[field.id] = 1;
+                            values[field.id] = "";
                           }
                         });
                       }

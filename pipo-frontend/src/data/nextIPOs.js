@@ -1,16 +1,16 @@
 export default [
   {
-    "id": 3,
-    "full_name": "Gabriel Match",
+    "issuer_id": 3,
+    "name": "Gabriel Match",
     "symbol": "GAMA",
-    "ref_price": 98.91,
-    "shares": 50000,
+    "reference_price": 98.91,
+    "total_shares": 50000,
   },
   {
-    "id": 4,
-    "full_name": "David Hang",
+    "issuer_id": 4,
+    "name": "David Hang",
     "symbol": "DAHA",
-    "ref_price": 56.73,
-    "shares": 25000,
+    "reference_price": 56.73,
+    "total_shares": 25000,
   },
 ];
