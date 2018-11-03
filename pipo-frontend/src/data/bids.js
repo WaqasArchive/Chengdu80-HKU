@@ -23,4 +23,16 @@ export default [
     "shares": 50,
     "bid_price": 5,
   },
+  {
+    "id": 5,
+    "inv_amount": 339,
+    "shares": 40,
+    "bid_price": 4,
+  },
+  {
+    "id": 6,
+    "inv_amount": 258,
+    "shares": 30,
+    "bid_price": 3,
+  },
 ];

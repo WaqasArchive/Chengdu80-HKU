@@ -1,3 +1,5 @@
+import BarGraph from "../../components/bargraph";
+import BidDistribution from "../../data/BidDistribution";
 import BidTable from "../../components/BidTable";
 import BidsData from "../../data/bids";
 import Button from "@material-ui/core/Button";
@@ -18,7 +20,7 @@ const styles = theme => ({
     paddingTop: 20,
   },
   tableContainer: {
-    height: 320,
+    height: 400,
   },
   appBarSpacer: theme.mixins.toolbar,
   content: {
@@ -74,13 +76,20 @@ class Dashboard extends React.Component {
         </Grid>
         <Grid
           container
-          spacing={24}
+          spacing={16}
           justify="space-evenly"
           xs={12}>
           <Grid
             item
-            xs={9}>
-            <BidTable rows={BidsData}/>
+            xs={6}>
+            <BarGraph
+              sampleData={BidDistribution}/>
+          </Grid>
+          <Grid
+            item
+            xs={6}>
+            <BidTable
+              rows={BidsData}/>
           </Grid>
           <Grid
             item
