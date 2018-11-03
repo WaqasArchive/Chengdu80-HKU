@@ -26,7 +26,17 @@ export default function Bargraph() {
         domainPadding={20}>
         <VictoryBar
           style={{data: {fill: "#3f51b5"}}}
-          data={sampleData}/>
+          data={sampleData}
+          animate={{
+            onExit: {
+              duration: 500,
+              before: () => ({
+                _y: 0,
+                fill: "#3f51b5",
+              }),
+            },
+          }}
+        />
       </VictoryChart>
     </Grid>
 
