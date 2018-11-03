@@ -104,7 +104,7 @@ class FullWidthTabs extends React.Component {
               Dividends (Last Month)
                 </Typography>
                 <Typography component="p">
-              $1,000
+              $1,100
                 </Typography>
               </Grid>
             </Grid>

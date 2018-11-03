@@ -4,12 +4,12 @@ import CardContent from "@material-ui/core/CardContent";
 import Divider from "@material-ui/core/Divider";
 import Grid from "@material-ui/core/Grid";
 import ListSubheader from "@material-ui/core/ListSubheader";
+import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import {withStyles} from "@material-ui/core/styles";
-import PropTypes from "prop-types";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
+import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
   cardHeader: {
@@ -32,7 +32,8 @@ function ipocard(props) {
   const {classes} = props;
   return (
     <Grid>
-      <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Trending IPOs</ListSubheader>
+      <ListSubheader align="left"
+style={{fontWeight: 'bold'}}>Trending IPOs</ListSubheader>
       <Divider style={{marginBottom: 20}} />
       <CardContent>
         <div>

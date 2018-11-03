@@ -24,7 +24,11 @@ function FolderList(props) {
   const {classes} = props;
   return (
     <div className={classes.root}>
-      <List subheader={<ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}}>Trending Investment Topics</ListSubheader>}>
+      <List subheader={<ListSubheader
+        align="left"
+        style={{fontWeight: "bold"}}>
+          Trending Investment Topics
+                       </ListSubheader>}>
         <Divider style={{marginBottom: 20}} />
         <ListItem>
           <Avatar>

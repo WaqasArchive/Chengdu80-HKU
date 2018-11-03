@@ -19,9 +19,8 @@ import {withStyles} from "@material-ui/core/styles";
 
 const actionsStyles = theme => ({
   root: {
-    flexShrink: 0,
     color: theme.palette.text.secondary,
-    marginLeft: theme.spacing.unit * 2.5,
+    width: 400,
   },
 });
 
@@ -97,7 +96,6 @@ const TablePaginationActionsWrapped = withStyles(actionsStyles, {withTheme: true
 );
 
 const CustomTableCell = withStyles(theme => ({
-
   body: {
     fontSize: 14,
   },
@@ -139,7 +137,10 @@ class SimpleTable extends React.Component {
     return (
 
       <Paper className={classes.root}>
-        <ListSubheader align="left">Top Investors</ListSubheader>
+        <ListSubheader
+          align="left"
+          style={{fontWeight: "bold"}}>Top Investors
+        </ListSubheader>
         <Divider />
         <Table className={classes.table}>
           <TableHead>

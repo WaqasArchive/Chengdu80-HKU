@@ -53,9 +53,12 @@ function SimpleCard(props) {
 
   return (
     <Card className={classes.card}>
+      <ListSubheader
+        align="left"
+        style={{fontWeight: "bold"}}>Henry Charles
+      </ListSubheader>
+      <Divider style={{marginBottom: 20}} />
       <CardContent>
-        <ListSubheader align="left">Henry Charles</ListSubheader>
-        <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
           component="h2">

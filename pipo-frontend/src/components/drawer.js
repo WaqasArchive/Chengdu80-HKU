@@ -8,18 +8,18 @@ export default [
   ],
   [
     {
-      name: "Issuer Sign Up",
+      name: "IPO Yourself",
       route: "/issuer_signup",
       icon: "assignment",
     },
     {
-      name: "Issuer Profile",
+      name: "Your IPO Status",
       route: "/issuer_profile",
       icon: "perm_identity",
     },
     {
-      name: "Issuer SetAskPrice",
-      route: "/issuer_setPrice",
+      name: "Respond to Bids",
+      route: "/issuer_setprice",
       icon: "subdirectory_arrow_right",
     },
   ],

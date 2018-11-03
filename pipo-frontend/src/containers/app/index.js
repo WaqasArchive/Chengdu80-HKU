@@ -48,7 +48,7 @@ export default () => (
         component={IssuerProfile} />
       <Route
         exact
-        path="/issuer_setPrice"
+        path="/issuer_setprice"
         component={IssuerSetPrice} />
     </AppBar>
   </Switch>

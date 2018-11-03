@@ -1,5 +1,7 @@
 import Button from "@material-ui/core/Button";
+import Chip from "@material-ui/core/Chip";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import DoneIcon from "@material-ui/icons/Done";
 import FormControl from "@material-ui/core/FormControl";
 import Grid from "@material-ui/core/Grid";
 import InputLabel from "@material-ui/core/InputLabel";
@@ -14,7 +16,6 @@ import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
-import purple from "@material-ui/core/colors/purple";
 import steps from "./steps";
 import {Formik} from "formik";
 import {connect} from "react-redux";
@@ -103,59 +104,76 @@ class IssuerForm extends React.Component {
     const {activeStep} = this.state;
 
     return (
-      <div className={classes.root}>
-        <Paper
-          className={classes.paper}
-          elevation={1}>
-          <Formik
-            onSubmit={(values, {setSubmitting}) => {
-              console.log(values);
-              createIssuer(values);
-              setSubmitting(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              handleChange,
-              handleSubmit,
-              isSubmitting,
-              setFieldValue,
-            /* and other goodies */
-            }) => (
-              <form onSubmit={handleSubmit}>
-                <Stepper
-                  activeStep={activeStep}
-                  orientation="vertical"
-                  style={{backgroundColor: "transparent"}}>
-                  {steps.map(step => {
-                    if (step.input) {
-                      step.input.forEach(field => {
-                        if (!values[field.id]) {
-                          values[field.id] = "";
-                        }
-                      });
-                    }
-                    return (
-                      !issuerSignUp.processing && <Step key={step.label}>
-                        <StepLabel>{step.label}</StepLabel>
-                        <StepContent>
-                          <Typography>
-                            {step.content && step.content}
-                            {step.input && (
-                              <Grid
-                                container
-                                direction="column"
-                                spacing={16}
-                                style={{paddingBottom: 20}}>
-                                { activeStep === 3 &&
-                                  <p>Our recommended price: ${issuerSignUp.createdIssuerId}</p>}
-                                {
-                                  step.input.map(field => (
-                                    <Grid
-                                      item
-                                      key={field.id}>
-                                      {field.dropdown &&
+      <Grid
+        container
+        xs={12}
+        className={classes.root}>
+        <Grid
+          item
+          xs={12}>
+          <h1>IPO Yourself</h1>
+        </Grid>
+        <Grid
+          item
+          xs={12}>
+          <Paper
+            className={classes.paper}
+            elevation={1}>
+            <Formik
+              onSubmit={(values, {setSubmitting}) => {
+                console.log(values);
+                createIssuer(values);
+                setSubmitting(false);
+              }}
+            >
+              {({
+                values,
+                errors,
+                handleChange,
+                handleSubmit,
+                isSubmitting,
+                setFieldValue,
+                /* and other goodies */
+              }) => (
+                <form onSubmit={handleSubmit}>
+                  <Stepper
+                    activeStep={activeStep}
+                    orientation="vertical"
+                    style={{backgroundColor: "transparent"}}>
+                    {steps.map(step => {
+                      if (step.input) {
+                        step.input.forEach(field => {
+                          if (!values[field.id]) {
+                            values[field.id] = "";
+                          }
+                        });
+                      }
+                      return (
+                        !issuerSignUp.processing && <Step key={step.label}>
+                          <StepLabel>{step.label}</StepLabel>
+                          <StepContent>
+                            <Typography>
+                              {step.content && step.content}
+                              {step.input && (
+                                <Grid
+                                  container
+                                  direction="column"
+                                  spacing={16}
+                                  style={{paddingBottom: 20}}>
+                                  { activeStep === 3 &&
+                                  <p>Our recommended price: <Chip
+                                    icon={<DoneIcon />}
+                                    label={issuerSignUp.createdIssuerId}
+                                    color="primary"
+                                    variant="outlined"
+                                  />
+                                  </p>}
+                                  {
+                                    step.input.map(field => (
+                                      <Grid
+                                        item
+                                        key={field.id}>
+                                        {field.dropdown &&
                                         <SimpleSelect
                                           id={field.id}
                                           name={field.name}
@@ -165,7 +183,7 @@ class IssuerForm extends React.Component {
                                             setFieldValue(field.id,e.target.value);
                                           }}
                                         />}
-                                      {!field.dropdown &&
+                                        {!field.dropdown &&
                                         <TextField
                                           style={{minWidth: 400}}
                                           id={field.id}
@@ -176,65 +194,67 @@ class IssuerForm extends React.Component {
                                           value={values[field.id]}
                                           type={field.type}
                                         />}
-                                    </Grid>
-                                  ))}
-                              </Grid>
-                            )}
-                          </Typography>
-                          <div className={classes.actionsContainer}>
-                            <div>
-                              <Button
-                                disabled={activeStep === 0 || isSubmitting}
-                                onClick={this.handleBack}
-                                className={classes.button}
-                              >
+                                      </Grid>
+                                    ))}
+                                </Grid>
+                              )}
+                            </Typography>
+                            <div className={classes.actionsContainer}>
+                              <div>
+                                <Button
+                                  disabled={activeStep === 0 || isSubmitting}
+                                  onClick={this.handleBack}
+                                  className={classes.button}
+                                >
                         Back
-                              </Button>
-                              <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={() => {
-                                  if (activeStep === 2 && JSON.stringify(errors) === JSON.stringify({})) {
-                                    this.setState(state => ({
-                                      activeStep: state.activeStep + 1,
-                                    }));
-                                    handleSubmit();
-                                  } else {
-                                    this.handleNext();
-                                  }
-                                }}
-                                className={classes.button}
-                              >
-                                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                              </Button>
+                                </Button>
+                                <Button
+                                  variant="contained"
+                                  color="primary"
+                                  onClick={() => {
+                                    if (activeStep === 2 && JSON.stringify(errors) === JSON.stringify({})) {
+                                      this.setState(state => ({
+                                        activeStep: state.activeStep + 1,
+                                      }));
+                                      handleSubmit();
+                                    } else {
+                                      this.handleNext();
+                                    }
+                                  }}
+                                  className={classes.button}
+                                >
+                                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                                </Button>
+                              </div>
                             </div>
-                          </div>
-                        </StepContent>
-                                                  </Step>
-                    );
-                  })}
-                </Stepper>
-              </form>
-            )}
-          </Formik>
-          {issuerSignUp.processing &&
+                          </StepContent>
+                        </Step>
+                      );
+                    })}
+                  </Stepper>
+                </form>
+              )}
+            </Formik>
+            {issuerSignUp.processing &&
             <CircularProgress
               size={50} />}
-          {activeStep === steps.length && issuerSignUp.createdIssuerId && (
-            <Paper
-              square
-              elevation={0}
-              className={classes.resetContainer}>
-              <Typography>All steps completed - you&quot;re finished</Typography>
-              <Button
-                onClick={()=>this.props.changePage()}
-                className={classes.button}>
+            {!issuerSignUp.processing && issuerSignUp.error}
+            {activeStep === steps.length && issuerSignUp.createdIssuerId && (
+              <Paper
+                square
+                elevation={0}
+                className={classes.resetContainer}>
+                <Typography>All steps completed - you&quot;re finished</Typography>
+                <Button
+                  onClick={()=>this.props.changePage()}
+                  className={classes.button}>
               Ok
-              </Button>
-            </Paper>
-          )}
-        </Paper>
-      </div>
+                </Button>
+              </Paper>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
     );
   }
 }
@@ -249,7 +269,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   createIssuer: signUpIssuer,
-  changePage: () => push("/issuer_details"),
+  changePage: () => push("/issuer_profile"),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(IssuerForm));

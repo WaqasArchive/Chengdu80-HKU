@@ -21,7 +21,7 @@ const styles = theme => ({
 });
 
 function IssuerDetails(props) {
-  const {classes, match} = props;
+  const {classes} = props;
 
   return (
     <Grid
@@ -31,7 +31,7 @@ function IssuerDetails(props) {
       <Grid
         item
         xs={12}>
-        <h1>Issuer Details {match.params.id && match.params.id}</h1>
+        <h1>Issuer Details</h1>
       </Grid>
       <Grid
         container

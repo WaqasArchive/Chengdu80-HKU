@@ -11,9 +11,9 @@ import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
-import {withStyles} from "@material-ui/core/styles";
 import {connect} from "react-redux";
 import {push} from "connected-react-router";
+import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
   button: {
@@ -59,7 +59,8 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <ListSubheader align="left" style={{fontWeight: 'bold', color: 'black'}} >Henry Charles</ListSubheader>
+        <ListSubheader align="left"
+style={{fontWeight: 'bold'}} >Henry Charles</ListSubheader>
         <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
@@ -75,7 +76,7 @@ function SimpleCard(props) {
         <Typography
           className={classes.pos}
           color="textSecondary"
-          >
+        >
           Progress to your personal IPO
         </Typography>
         <div className={classes.root}>
