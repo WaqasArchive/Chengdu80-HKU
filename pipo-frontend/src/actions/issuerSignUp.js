@@ -22,7 +22,7 @@ export function signUpIssuer(issuerDetails) {
       .catch(function (error) {
         dispatch({
           type: ISSUER_SIGNUP_ERROR,
-          data: error,
+          data: error.message,
         });
       });
   });

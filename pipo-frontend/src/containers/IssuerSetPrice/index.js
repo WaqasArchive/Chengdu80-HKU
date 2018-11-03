@@ -10,10 +10,13 @@ import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import {withStyles} from "@material-ui/core/styles";
 const styles = theme => ({
+  root: {
+    width: "90%",
+    paddingTop: 20,
+  },
   tableContainer: {
     height: 320,
   },
@@ -30,12 +33,6 @@ const styles = theme => ({
   row: {
     display: "flex",
     justifyContent: "center",
-  },
-  root: {
-    ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 5,
-    paddingBottom: theme.spacing.unit * 2,
-    marginTop: 25,
   },
   textField: {
     marginLeft: theme.spacing.unit*5,
@@ -66,87 +63,73 @@ class Dashboard extends React.Component {
     const {classes} = this.props;
 
     return (
-      <React.Fragment>
-        <CssBaseline />
-        <main className={classes.content}>
-          <div className={classes.appBarSpacer} />
+      <Grid
+        container
+        xs={12}
+        className={classes.root}>
+        <Grid
+          item
+          xs={12}>
+          <h1>Respond To Bids</h1>
+        </Grid>
+        <Grid
+          container
+          spacing={24}
+          justify="space-evenly"
+          xs={12}>
           <Grid
-            container
-            className={classes.root}
-            spacing={24}
-            justify="space-evenly">
-            <Grid
-              item
-              xs={12}>
-              <Typography
-                style={{fontWeight: "bold", color: "black"}}
-                variant="h4"
-                gutterBottom
-                component="h4">
-                Henry Charles
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              xs={9}>
-              <div className={classes.tableContainer}>
-                <BidTable rows={BidsData}/>
-              </div>
-            </Grid>
-            <Grid
-              item
-              xs={3}>
-              <div>
-                <Paper
-                  className={classes.paper}
-                  elevation={1}>
-                  <Grid
-                    container
-                    spacing={4}
-                    justify="space-evenly">
-                    <Grid
-                      item
-                      xs={12}>
-                      <ListSubheader
-                        align="left"
-                        style={{fontWeight: "bold", color: "black"}} >Decide ask Price!
-                      </ListSubheader>
-                      <Divider />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}><TextField
-                        id="1"
-                        label="ask price"
-                        margin="dense"
-                        variant="filled"
-                        className={classNames(classes.textField, classes.dense)}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      xs={12}>
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        className={classes.button}
-                        size="large"
-
-                      >
-        SET PRICE
-                        <Icon className={classes.rightIcon}>send</Icon>
-                      </Button>
-                    </Grid>
-
-                  </Grid>
-
-                </Paper>
-              </div>
-            </Grid>
-
+            item
+            xs={9}>
+            <BidTable rows={BidsData}/>
           </Grid>
-        </main>
-      </React.Fragment>
+          <Grid
+            item
+            xs={3}>
+            <Paper
+              className={classes.paper}
+              elevation={1}>
+              <Grid
+                container
+                spacing={4}
+                justify="space-evenly">
+                <Grid
+                  item
+                  xs={12}>
+                  <ListSubheader
+                    align="left"
+                    style={{fontWeight: "bold"}} >Decide Ask Price
+                  </ListSubheader>
+                  <Divider />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}><TextField
+                    id="1"
+                    label="Ask Price"
+                    margin="dense"
+                    variant="filled"
+                    className={classNames(classes.textField, classes.dense)}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={12}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    size="large"
+
+                  >
+        SET PRICE
+                    <Icon className={classes.rightIcon}>send</Icon>
+                  </Button>
+                </Grid>
+              </Grid>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Grid>
     );
   }
 }

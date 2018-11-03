@@ -29,7 +29,10 @@ class InsetList extends React.Component {
   render () {
     const {issuers} = this.props;
     return (
-      <List subheader={<ListSubheader align="left">Top 5 Issuers</ListSubheader>}>
+      <List subheader={<ListSubheader
+        align="left"
+        style={{fontWeight: "bold"}}>Top 5 Issuers
+                       </ListSubheader>}>
         <Divider style={{marginBottom: 20}} />
         {issuers.map((name, index) => (
           <ListItem

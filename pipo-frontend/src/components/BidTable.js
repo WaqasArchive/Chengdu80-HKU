@@ -141,7 +141,7 @@ class SimpleTable extends React.Component {
       <Paper className={classes.root}>
         <ListSubheader
           align="left"
-          style={{fontWeight: "bold", color: "black"}}>Top Investors
+          style={{fontWeight: "bold"}}>Top Investors
         </ListSubheader>
         <Divider />
         <Table className={classes.table}>
