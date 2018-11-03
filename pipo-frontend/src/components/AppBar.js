@@ -23,6 +23,7 @@ import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
 import drawerItems from "./drawer.js";
 import {Link, NavLink} from "react-router-dom";
+import {connect} from "react-redux";
 import {fade} from "@material-ui/core/styles/colorManipulator";
 import {withStyles} from "@material-ui/core/styles";
 
@@ -172,6 +173,7 @@ class MiniDrawer extends React.Component {
           className={classNames(classes.appBar, {
             [classes.appBarShift]: this.state.open,
           })}
+          style={{backgroundColor: this.props.user && this.props.user.issuer ? "#4caf50" : "#3f51b5"}}
         >
           <Toolbar disableGutters={!this.state.open}>
             <IconButton
@@ -203,6 +205,12 @@ class MiniDrawer extends React.Component {
               />
             </div>
             <div className={classes.grow} />
+            <Typography
+              variant="h6"
+              color="inherit"
+              noWrap>
+              {this.props.user && this.props.user.issuer ? "(Issuer)" : "(Investor)"}
+            </Typography>
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge
@@ -254,30 +262,62 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            {drawerItems.map((drawer,index) => (
-              <div key={index}>
-                <List>
-                  {
-                    drawer.map(item => (
-                      <NavLink
-                        key={item.route}
-                        to={item.route}
-                        style={{textDecoration: "none"}}>
-                        <ListItem
-                          button
-                          key={item.route}
-                          selected={this.props.location.pathname === item.route}
-                        >
-                          <Icon className={classes.icon}>{item.icon}</Icon>
-                          <ListItemText primary={item.name} />
-                        </ListItem>
-                      </NavLink>
-                    ))
-                  }
-                </List>
-                {(index !== drawerItems.length - 1) && <Divider />}
-              </div>
-            ))}
+            {drawerItems.map((drawer,index) => {
+              console.log(this.props.user);
+              if (index === 1) {
+                if (this.props.user && this.props.user.issuer) {
+                  return (
+                    <div key={index}>
+                      <List>
+                        {
+                          drawer.map(item => (
+                            <NavLink
+                              key={item.route}
+                              to={item.route}
+                              style={{textDecoration: "none"}}>
+                              <ListItem
+                                button
+                                key={item.route}
+                                selected={this.props.location.pathname === item.route}
+                              >
+                                <Icon className={classes.icon}>{item.icon}</Icon>
+                                <ListItemText primary={item.name} />
+                              </ListItem>
+                            </NavLink>
+                          ))
+                        }
+                      </List>
+                      {(index !== drawerItems.length - 1) && <Divider />}
+                    </div>
+                  );
+                }
+              } else {
+                return (
+                  <div key={index}>
+                    <List>
+                      {
+                        drawer.map(item => (
+                          <NavLink
+                            key={item.route}
+                            to={item.route}
+                            style={{textDecoration: "none"}}>
+                            <ListItem
+                              button
+                              key={item.route}
+                              selected={this.props.location.pathname === item.route}
+                            >
+                              <Icon className={classes.icon}>{item.icon}</Icon>
+                              <ListItemText primary={item.name} />
+                            </ListItem>
+                          </NavLink>
+                        ))
+                      }
+                    </List>
+                    {(index !== drawerItems.length - 1) && <Divider />}
+                  </div>
+                );
+              }
+            })}
           </List>
         </Drawer>
         <main
@@ -289,9 +329,13 @@ class MiniDrawer extends React.Component {
   }
 }
 
+const mapStateToProps = state => ({
+  user: state.users.user,
+});
+
 MiniDrawer.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, {withTheme: true})(MiniDrawer);
+export default connect(mapStateToProps, null)(withStyles(styles, {withTheme: true})(MiniDrawer));

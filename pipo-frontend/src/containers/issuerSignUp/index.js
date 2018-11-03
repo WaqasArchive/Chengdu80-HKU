@@ -228,7 +228,7 @@ class IssuerForm extends React.Component {
                               </div>
                             </div>
                           </StepContent>
-                        </Step>
+                                                    </Step>
                       );
                     })}
                   </Stepper>

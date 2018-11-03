@@ -59,8 +59,10 @@ function SimpleCard(props) {
   return (
     <Card className={classes.card}>
       <CardContent>
-        <ListSubheader align="left"
-style={{fontWeight: 'bold'}} >Henry Charles</ListSubheader>
+        <ListSubheader
+          align="left"
+          style={{fontWeight: "bold"}} >{props.user ? props.user.name : "User"}
+        </ListSubheader>
         <Divider style={{marginBottom: 20}} />
         <Typography
           variant="h5"
@@ -82,11 +84,11 @@ style={{fontWeight: 'bold'}} >Henry Charles</ListSubheader>
         <div className={classes.root}>
           <LinearProgress
             variant="determinate"
-            value="20" />
+            value={props.user && props.user.issuer ? "100" : "20"} />
         </div>
         <Typography
           className={classes.pos}
-          color="textSecondary">
+          style={{color: props.user && props.user.issuer ? "green" : "grey"}}>
           ✔️ Add more details <br/>
           ✔️ Know your value <br/>
           ✔️ Make your dreams true!
@@ -99,8 +101,8 @@ style={{fontWeight: 'bold'}} >Henry Charles</ListSubheader>
           className={classes.button}
           size="large"
           styles={{align:"center"}}
-          onClick={() => props.changePage("/issuer_signup")}>
-        IPO NOW
+          onClick={() => props.changePage(props.user && props.user.issuer ? "/issuer_profile" : "/issuer_signup")}>
+          {props.user && props.user.issuer ? "Check IPO Status" : "IPO NOW"}
           <Icon className={classes.rightIcon}>send</Icon>
         </Button>
       </CardActions>
@@ -112,11 +114,15 @@ SimpleCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
+const mapStateToProps = state => ({
+  user: state.users.user,
+});
+
 const mapDispatchToProps = {
   changePage: (path) => push(path),
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(SimpleCard));

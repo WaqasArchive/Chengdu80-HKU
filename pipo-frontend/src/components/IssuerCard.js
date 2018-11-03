@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
 import classNames from "classnames";
+import {connect} from "react-redux";
 import {withStyles} from "@material-ui/core/styles";
 
 const styles = theme => ({
@@ -55,7 +56,7 @@ function SimpleCard(props) {
     <Card className={classes.card}>
       <ListSubheader
         align="left"
-        style={{fontWeight: "bold"}}>Henry Charles
+        style={{fontWeight: "bold"}}>{props.user ? props.user.name : "User"}
       </ListSubheader>
       <Divider style={{marginBottom: 20}} />
       <CardContent>
@@ -97,4 +98,11 @@ SimpleCard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleCard);
+const mapStateToProps = state => ({
+  user: state.users.user,
+});
+
+export default connect(
+  mapStateToProps,
+  null
+)(withStyles(styles)(SimpleCard));
