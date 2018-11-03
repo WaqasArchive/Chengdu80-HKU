@@ -6,20 +6,26 @@ import json
 debug=False
 class Exchange:
 	def __init__(self):
-		self.order_interval = 1
+		self.order_interval = 0.0001
 		self.best_bp = 0
 		self.best_ap = 999999999
 		self.bq = {}
 		self.aq = {}
 		self.id_time = {}
 		self.order_seq = 50000
-	def set_dist_mode(self, mode, p, q):
+		self.mode="fifo"
+	def set_dist_mode(self, mode):
+		self.mode=mode
+		return mode
+	def add_order_dist(self, id, p, q):
 		obq = copy.deepcopy(self.bq)
 		oaq = copy.deepcopy(self.aq)
 		obbp = self.best_bp
 		obap = self.best_ap
 		ooi = self.order_interval
 		oidtime = copy.deepcopy(self.id_time)
+		omode = self.mode
+		self.mode="fifo"
 		self.order_interval = 0.00001
 		tamt = 0
 		tshare = 0
@@ -44,12 +50,66 @@ class Exchange:
 					pdist[300] += 1
 				elif i[2] >= 400:
 					pdist[400] += 1
-		total_filled = 0
 		all_filled = copy.deepcopy(filled)
 
+
+
 		oq = q
+		tfilled =0
+		for i in filled:
+			if i[1] != "get_amt":
+				if i[2] <= 100 and pdist[100] > 0:
+					if q*dist_list[100] / pdist[100] < i[2]:
+						i[2] = int(q*dist_list[100] / pdist[100])
+					tfilled += i[2]
+				elif i[2] < 200 and pdist[200] > 0:
+					if q*dist_list[200] / pdist[200] < i[2]:					
+						i[2] = int(q*dist_list[200] / pdist[200])
+					tfilled += i[2]
+				elif i[2] < 300 and pdist[300] > 0:
+					if q*dist_list[300] / pdist[300] < i[2]:
+						i[2] = int(q*dist_list[300] / pdist[300])
+					tfilled += i[2]
+				elif i[2] >= 400 and pdist[400] > 0:
+					if q*dist_list[400] / pdist[400] < i[2]:
+						i[2] = int(q*dist_list[400] / pdist[400])
+					tfilled += i[2]
+			else:
+				issuer_order = i
+		issuer_order[1] = id
+		issuer_order[2] = tfilled
+
+		self.bq = copy.deepcopy(obq)
+		self.aq = copy.deepcopy(oaq)
+		self.best_bp = obbp
+		self.best_ap = obap
+		self.id_time = copy.deepcopy(oidtime)
+		self.order_interval = ooi
+		self.mode = omode
+		for i in self.bq.values():
+			for k in i:
+				for j in filled:
+					#print "-----"
+					#print k,k[2]
+					#print "===="
+					#print j,j[3]
+					if k[2] == j[3]:
+						k[1] = k[1] - j[2]
+
+		for i in self.bq.values():
+			new_i = i[:]
+			for k in new_i:
+				if k[1] == 0:
+					i.remove(k)
+		for i in self.bq.keys():
+			if len(self.bq[i]) == 0:
+				del self.bq[i]
+
+		'''
 		reamaining = copy.deepcopy(filled)
-		while total_filled < oq:
+		prev_total_filled = -1
+		while total_filled != prev_total_filled:
+			prev_total_filled = total_filled
 			print q,total_filled
 			tfilled = 0
 			filled = copy.deepcopy(reamaining)
@@ -78,29 +138,29 @@ class Exchange:
 				for j in reamaining:
 					if j[3] == i[3]:
 						j[2] -= i[2]
+
 			#print reamaining
 		print "over sub?" + str(float(tshare)/q)
 		print tamt
 		print tshare
 		print pdist
 		print tfilled
-		print filled
+		print all_filled
+		print reamaining
+		'''
 		#if mode == "max_amt":
 
-		self.bq = copy.deepcopy(obq)
-		self.aq = copy.deepcopy(oaq)
-		self.best_bp = obbp
-		self.best_ap = obap
-		oidtime = copy.deepcopy(oidtime)
-		self.order_interval = ooi
-
-	def get_max_issuer_amt(self):
+		print  {"dist_list":dist_list, "filled" : filled, "total_filled" : tfilled, "share_freq" : pdist}
+		return filled
+	def get_max_issuer_amt(self, q=9999999999):
 		obq = copy.deepcopy(self.bq)
 		oaq = copy.deepcopy(self.aq)
 		obbp = self.best_bp
 		obap = self.best_ap
+		omode = self.mode
 		ooi = self.order_interval
 		self.order_interval = 0.00001
+		self.mode="fifo"
 		oidtime = copy.deepcopy(self.id_time)
 		mamt = 0
 		all_amts = []
@@ -119,7 +179,7 @@ class Exchange:
 			#print self.aq
 			#print "****<-"
 
-			filled = self.add_order(-1, "get_max_issuer_amt", p, 9999999999)
+			filled = self.add_order(-1, "get_max_issuer_amt", p, q)
 			for i in filled:
 				if i[1] == "get_max_issuer_amt":
 					tamt += i[0]*i[2]
@@ -129,6 +189,7 @@ class Exchange:
 				mamt = tamt
 				mp = p
 				mshare = tshare
+		self.mode = omode
 		self.bq = copy.deepcopy(obq)
 		self.aq = copy.deepcopy(oaq)
 		self.best_bp = obbp
@@ -137,6 +198,8 @@ class Exchange:
 		self.order_interval = ooi
 		return {"best_price" : mp, "max_amount" : mamt, "best_ask_share" : mshare, "amount_dist" : all_amts}
 	def add_order(self, b_a, id, p, q,t=None):
+		if self.mode != "fifo" and b_a != 1:
+			return self.add_order_dist(id, p, q)
 		now = datetime.datetime.now()
 		if t==None:
 			t=now
@@ -152,12 +215,18 @@ class Exchange:
 			qu[p] = []
 
 		if id in self.id_time:
-			if (now - self.id_time[id]) < datetime.timedelta(seconds=self.order_interval):
+			idt=str(self.id_time[id])
+			#print now - datetime.datetime.strptime(idt, "%Y%m%d%H%M%S")
+			if (now - datetime.datetime.strptime(idt, "%Y%m%d%H%M%S")) < datetime.timedelta(seconds=self.order_interval):
+				print "too fast"
 				return None
+			else:
+				self.id_time[id] = now.strftime("%Y%m%d%H%M%S")
 		else:
-			self.id_time[id] = now
+			print "add time"
+			self.id_time[id] = now.strftime("%Y%m%d%H%M%S")
 
-		qu[p].append([id,q, self.order_seq, t])
+		qu[p].append([id,q, self.order_seq, t.strftime("%Y%m%d%H%M%S") ])
 		self.order_seq+=1
 		return self.match()
 					
@@ -263,7 +332,7 @@ class Exchange:
 def gen_orders():
 	orders=[]
 	now = datetime.datetime.now()
-	for i in range(1,100):
+	for i in range(1,1000):
 		id_int = random.randint(1000, 9999)
 		id = "R00" + str(id_int)
 		ba = 1
@@ -279,12 +348,7 @@ def gen_orders():
 	tdelta = random.randint(-86400, 0)
 	t = (now + datetime.timedelta(seconds=tdelta)).strftime("%Y%m%d%H%M%S") 
 	orders.append({"id":id, "ba": ba, "p":price, "q":q, "t":t})
-	#json_file = json.dumps(orders, indent=4, sort_keys=True)
-	
-	with open('data.json', 'w') as outfile:
-		json.dump(orders, outfile)
-	
-	
+	print json.dumps(orders, indent=4, sort_keys=True)
 if __name__ == "__main__":
 	#print "start"
 	ex = Exchange()
@@ -313,9 +377,9 @@ if __name__ == "__main__":
 		#time.sleep(1)
 		filled=ex.add_order(1, "R1000" + str(n), 8, 100)
 		nfilled += len(filled)
-		#filled=ex.add_order(-1, "P1000" + str(n), 15, 300)
+		filled=ex.add_order(-1, "P1000" + str(n), 6, 300)
 		#nfilled += len(filled)
-		#print filled
+		print filled
 	#filled=ex.add_order(-1, "P10006", 15, 300)
 	#print "===="
 	#print filled
@@ -324,4 +388,4 @@ if __name__ == "__main__":
 	#print ex.aq
 	#print ex.get_max_issuer_amt()
 	#print ex.set_dist_mode("max_amt", 7, 1000)
-	gen_orders()
+	#gen_orders()
