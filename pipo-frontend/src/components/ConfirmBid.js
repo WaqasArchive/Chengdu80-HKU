@@ -51,7 +51,7 @@ function ConfirmBid(props) {
           <Typography
             variant="subtitle1"
             className={classes.total}>
-            $3442
+            ${rows[0].quantity*rows[0].ref_price}
           </Typography>
         </ListItem>
       </List>

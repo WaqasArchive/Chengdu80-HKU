@@ -124,7 +124,8 @@ class IssuerForm extends React.Component {
                 if (activeStep === 3) {
                   getIPOReferencePrice(values);
                 } else {
-                  values.issuer_id =
+                  values.issuer_id = this.props.user ? this.props.user.id : 4;
+                  values.reference_price = this.props.IPO.referencePrice;
                   createIPO(values);
                 }
                 setSubmitting(false);
@@ -232,7 +233,7 @@ class IssuerForm extends React.Component {
                               </div>
                             </div>
                           </StepContent>
-                                           </Step>
+                        </Step>
                       );
                     })}
                   </Stepper>

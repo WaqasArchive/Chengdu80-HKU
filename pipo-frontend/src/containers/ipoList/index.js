@@ -7,7 +7,8 @@ import IPOList from "./IPOList";
 import PropTypes from "prop-types";
 import React from "react";
 import Typography from "@material-ui/core/Typography";
-import currentIPOs from "../../data/currentIPOs";
+//import currentIPOs from "../../data/currentIPOs";
+import api from "../../services/backend";
 import nextIPOs from "../../data/nextIPOs";
 import {withStyles} from "@material-ui/core/styles";
 
@@ -21,41 +22,52 @@ const styles = theme => ({
   },
 });
 
-function SimpleExpansionPanel(props) {
-  const {classes} = props;
-  return (
-    <Grid
-      container
-      xs={12}
-      className={classes.root}>
+class SimpleExpansionPanel extends React.Component {
+  state = {
+    currentIPOs: [],
+  }
+  componentDidMount() {
+    api.getAllIPOs().then(response => {
+      this.setState({currentIPOs: response});
+    }).catch(error => console.log(error));
+  }
+  render() {
+    const {classes} = this.props;
+    const {currentIPOs} = this.state;
+    return (
       <Grid
-        item
-        xs={12}>
-        <h1>Upcoming Personal IPOs</h1>
+        container
+        xs={12}
+        className={classes.root}>
+        <Grid
+          item
+          xs={12}>
+          <h1>Upcoming Personal IPOs</h1>
+        </Grid>
+        <Grid
+          item
+          xs={12}>
+          <ExpansionPanel>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>This Week</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <IPOList rows={currentIPOs}/>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel>
+            <ExpansionPanelSummary
+              expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>Next Week</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <IPOList rows={nextIPOs}/>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+        </Grid>
       </Grid>
-      <Grid
-        item
-        xs={12}>
-        <ExpansionPanel>
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>This Week</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <IPOList rows={currentIPOs}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-        <ExpansionPanel>
-          <ExpansionPanelSummary
-            expandIcon={<ExpandMoreIcon />}>
-            <Typography className={classes.heading}>Next Week</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <IPOList rows={nextIPOs}/>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
-      </Grid>
-    </Grid>
-  );
+    );
+  }
 }
 
 SimpleExpansionPanel.propTypes = {

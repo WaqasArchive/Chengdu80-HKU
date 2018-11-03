@@ -35,10 +35,9 @@ export function signUpIPO(issuerDetails) {
       type: IPO_SIGNUP_PROCESSING,
     });
     api.addIPO(issuerDetails)
-      .then(response => resolve(
+      .then(() => resolve(
         dispatch({
           type: IPO_SIGNUP_SUCCESS,
-          data: response.reference_price,
         }),
       ))
       .catch(function (error) {

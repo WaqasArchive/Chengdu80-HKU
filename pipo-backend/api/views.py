@@ -19,7 +19,7 @@ def askPricePrediction(a, dividendPayoutRatio, noOfShares):
     Band = loaded_model.predict(a)
     askPrice = (31.6*Band + 1.61*noOfShares)/noOfShares
     print(askPrice)
-    return askPrice[0]
+    return round(askPrice[0],2)
 
 @csrf_exempt
 def referencePrice(request):
@@ -44,30 +44,49 @@ def referencePrice(request):
 def addIPO(request):
         if request.method == 'POST':
                 data = json.loads(request.body)
-                price = data['price']
                 no_of_shares = data['no_of_shares']
                 issuer_id = data['issuer_id']
                 new_ipo = IPO()
-                new_ipo.price = price
-                new_ipo.no_of_shares = no_of_shares
-                new_ipo.issuer = Person.object.get(identify=issuer_id)
+                new_ipo.issuer = Person.objects.get(identify=issuer_id)
+                new_ipo.symbol = new_ipo.issuer.name[:4].upper()
+                new_ipo.reference_price = data["reference_price"]
+                new_ipo.indicative_price = data["price"]
+                new_ipo.total_shares = no_of_shares
+                new_ipo.left_shares = no_of_shares
                 new_ipo.save()
                 return HttpResponse('')
+
+@csrf_exempt
+def get_ipos(request):
+        if request.method == 'GET':
+                db_ipos = IPO.objects.all()
+                ipos = []
+                for current_ipo in db_ipos:
+                  ipos.append({
+                          "issuer_id": current_ipo.issuer.identify,
+                          "name": current_ipo.issuer.name,
+                          "symbol": current_ipo.symbol,
+                          "reference_price": current_ipo.reference_price,
+                          "indicative_price": current_ipo.indicative_price,
+                          "total_shares": current_ipo.total_shares,
+                          "left_shares":current_ipo.left_shares
+                  })
+                return JsonResponse(ipos, safe=False)
 
 @csrf_exempt
 def get_ipo(request):
         if request.method == 'GET':
                 issuer_id = request.GET.get('issuer_id')
                 issuer = Person.objects.get(identify=issuer_id)
-                current_ipo = IPO.objects.get(issuer=issuer)
+                current_ipo = IPO.objects.filter(issuer=issuer).first()
                 ipo = {
                         "issuer_id": current_ipo.issuer.identify,
                         "name": current_ipo.issuer.name,
                         "symbol": current_ipo.symbol,
-                        "reference_price": current_ipo.reference_price,    
+                        "reference_price": current_ipo.reference_price,
                         "indicative_price": current_ipo.indicative_price,
                         "total_shares": current_ipo.total_shares,
-                        "left_shares":current_ipo.left_shares                                                
+                        "left_shares":current_ipo.left_shares
                 }
                 return JsonResponse(ipo, safe=False)
 
@@ -93,9 +112,10 @@ status = {
 def addBid(request):
         if request.method == 'POST':
                 data = json.loads(request.body)
+                print(data)
                 issuer_id = data['issuer_id']
                 issuer = Person.objects.get(identify=issuer_id)
-                ipo = IPO.objects.get(issuer=issuer)
+                ipo = IPO.objects.filter(issuer=issuer).first()
                 bid_price = data['bid_price']
                 no_of_shares = data['no_of_shares']
                 investor_id = data['investor_id']
@@ -186,7 +206,7 @@ def getBidsIssuer(request):
                 try:
                         issuer_id = request.GET.get('issuer_id')
                         issuer = Person.objects.get(identify=issuer_id)
-                        ipo = IPO.objects.get(issuer=issuer)
+                        ipo = IPO.objects.filter(issuer=issuer).first()
                 except:
                         return HttpResponse('Issuer does not exist')
                 bids = Bid.objects.filter(ipo = ipo)

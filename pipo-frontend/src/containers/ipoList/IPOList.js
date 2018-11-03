@@ -139,6 +139,7 @@ class CustomizedTable extends React.Component {
   render() {
     const {classes, rows} = this.props;
     const {page} = this.state;
+    console.log(rows);
     return (
 
       <Paper className={classes.root}>
@@ -155,17 +156,17 @@ class CustomizedTable extends React.Component {
             {rows.map((row, index) => {
               return (
                 <TableRow
-                  onClick={event => this.handleClick(event,row.id)}
+                  onClick={event => this.handleClick(event,row.issuer_id)}
                   className={classes.row}
                   key={index}>
                   <CustomTableCell
                     component="th"
                     scope="row">
-                    {row.full_name}
+                    {row.name}
                   </CustomTableCell>
                   <CustomTableCell>{row.symbol}</CustomTableCell>
-                  <CustomTableCell numeric>{row.ref_price}</CustomTableCell>
-                  <CustomTableCell numeric>{row.shares}</CustomTableCell>
+                  <CustomTableCell numeric>{row.reference_price}</CustomTableCell>
+                  <CustomTableCell numeric>{row.total_shares}</CustomTableCell>
                 </TableRow>
               );
             })}

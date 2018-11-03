@@ -22,7 +22,6 @@ const styles = theme => ({
 
 function IssuerDetails(props) {
   const {classes} = props;
-
   return (
     <Grid
       container
@@ -64,7 +63,7 @@ function IssuerDetails(props) {
       <Grid
         item
         xs={12}>
-        <BidForm />
+        <BidForm issuerId={props.match.params.id}/>
       </Grid>
     </Grid>
   );

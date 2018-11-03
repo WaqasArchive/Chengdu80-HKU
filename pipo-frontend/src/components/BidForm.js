@@ -1,4 +1,4 @@
-import BidData from "../data/bidData";
+//import BidData from "../data/bidData";
 import Button from "@material-ui/core/Button";
 import ConfirmBid from "./ConfirmBid";
 import Paper from "@material-ui/core/Paper";
@@ -9,7 +9,9 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import Typography from "@material-ui/core/Typography";
+import api from "../services/backend";
 import withStyles from "@material-ui/core/styles/withStyles";
+import {connect} from "react-redux";
 
 const styles = theme => ({
   appBar: {
@@ -50,26 +52,54 @@ const styles = theme => ({
 
 const steps = ["Place Bid", "Review your order"];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <PlaceBid />;
-    case 1:
-      return <ConfirmBid rows={BidData} />;
-    default:
-      throw new Error("Unknown step");
-  }
-}
-
 class Checkout extends React.Component {
   state = {
     activeStep: 0,
+    bidPrice: "",
+    noOfShares: "",
   };
 
+  getStepContent(step) {
+    const {bidPrice, noOfShares} = this.state;
+    const BidData = [
+      {
+        "id": this.props.user.id,
+        "name": this.props.user.name,
+        "quantity": noOfShares,
+        "ref_price": bidPrice,
+      },
+    ];
+
+    switch (step) {
+      case 0:
+        return <PlaceBid
+          bidPrice={bidPrice}
+          bidPriceHandleChange={(e)=>this.setState({bidPrice: e.target.value})}
+          noOfShares={noOfShares}
+          noOfSharesHandleChange={(e)=>this.setState({noOfShares: e.target.value})}
+        />;
+      case 1:
+        return <ConfirmBid rows={BidData} />;
+      default:
+        throw new Error("Unknown step");
+    }
+  }
+
   handleNext = () => {
+    const {activeStep, bidPrice, noOfShares} = this.state;
+    const {user, issuerId} = this.props;
+    console.log(issuerId);
     this.setState(state => ({
       activeStep: state.activeStep + 1,
     }));
+    if (activeStep === steps.length - 1) {
+      api.addBid({
+        "bid_price":bidPrice,
+        "no_of_shares":noOfShares,
+        "investor_id":user.id,
+        "issuer_id":issuerId,
+      }).then((response)=>console.log(response));
+    }
   };
 
   handleBack = () => {
@@ -122,7 +152,7 @@ class Checkout extends React.Component {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  {getStepContent(activeStep)}
+                  {this.getStepContent(activeStep)}
                   <div className={classes.buttons}>
                     {activeStep !== 0 && (
                       <Button
@@ -154,4 +184,8 @@ Checkout.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Checkout);
+const mapStateToProps = state => ({
+  user: state.users.user || {"id": 3, "name": "Sudhams Tarun"} ,
+});
+
+export default connect(mapStateToProps, null)(withStyles(styles)(Checkout));

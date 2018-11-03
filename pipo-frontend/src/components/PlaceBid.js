@@ -3,7 +3,8 @@ import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 
-function PlaceBid() {
+function PlaceBid(props) {
+  const {bidPrice, bidPriceHandleChange, noOfShares, noOfSharesHandleChange} = props;
   return (
     <React.Fragment>
       <Typography
@@ -22,6 +23,8 @@ function PlaceBid() {
             required
             id="bid_price"
             label="Bid Price"
+            value={bidPrice}
+            onChange={bidPriceHandleChange}
             fullWidth />
         </Grid>
         <Grid
@@ -32,6 +35,8 @@ function PlaceBid() {
             required
             id="no_of_shares"
             label="Number of Shares"
+            value={noOfShares}
+            onChange={noOfSharesHandleChange}
             fullWidth />
         </Grid>
       </Grid>
