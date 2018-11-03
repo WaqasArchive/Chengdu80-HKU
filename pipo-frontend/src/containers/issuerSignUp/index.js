@@ -19,8 +19,8 @@ import Typography from "@material-ui/core/Typography";
 import steps from "./steps";
 import {Formik} from "formik";
 import {connect} from "react-redux";
+import {getReferencePrice, signUpIPO} from "../../actions/IPO";
 import {push} from "connected-react-router";
-import {signUpIssuer} from "../../actions/issuerSignUp";
 import {withStyles} from "@material-ui/core/styles";
 
 const SimpleSelect = ({id, name, options, value, onChange}) => {
@@ -100,7 +100,7 @@ class IssuerForm extends React.Component {
   };
 
   render() {
-    const {classes, createIssuer, issuerSignUp} = this.props;
+    const {classes, IPO, createIPO, getIPOReferencePrice} = this.props;
     const {activeStep} = this.state;
 
     return (
@@ -121,8 +121,12 @@ class IssuerForm extends React.Component {
             elevation={1}>
             <Formik
               onSubmit={(values, {setSubmitting}) => {
-                console.log(values);
-                createIssuer(values);
+                if (activeStep === 3) {
+                  getIPOReferencePrice(values);
+                } else {
+                  values.issuer_id =
+                  createIPO(values);
+                }
                 setSubmitting(false);
               }}
             >
@@ -144,12 +148,12 @@ class IssuerForm extends React.Component {
                       if (step.input) {
                         step.input.forEach(field => {
                           if (!values[field.id]) {
-                            values[field.id] = "";
+                            values[field.id] = 1;
                           }
                         });
                       }
                       return (
-                        !issuerSignUp.processing && <Step key={step.label}>
+                        !IPO.processing && <Step key={step.label}>
                           <StepLabel>{step.label}</StepLabel>
                           <StepContent>
                             <Typography>
@@ -163,7 +167,7 @@ class IssuerForm extends React.Component {
                                   { activeStep === 3 &&
                                   <p>Our recommended price: <Chip
                                     icon={<DoneIcon />}
-                                    label={issuerSignUp.createdIssuerId}
+                                    label={IPO.referencePrice}
                                     color="primary"
                                     variant="outlined"
                                   />
@@ -212,7 +216,7 @@ class IssuerForm extends React.Component {
                                   variant="contained"
                                   color="primary"
                                   onClick={() => {
-                                    if (activeStep === 2 && JSON.stringify(errors) === JSON.stringify({})) {
+                                    if (activeStep >= 2 && JSON.stringify(errors) === JSON.stringify({})) {
                                       this.setState(state => ({
                                         activeStep: state.activeStep + 1,
                                       }));
@@ -228,18 +232,18 @@ class IssuerForm extends React.Component {
                               </div>
                             </div>
                           </StepContent>
-                                                    </Step>
+                                           </Step>
                       );
                     })}
                   </Stepper>
                 </form>
               )}
             </Formik>
-            {issuerSignUp.processing &&
+            {IPO.processing &&
             <CircularProgress
               size={50} />}
-            {!issuerSignUp.processing && issuerSignUp.error}
-            {activeStep === steps.length && issuerSignUp.createdIssuerId && (
+            {!IPO.processing && IPO.error}
+            {activeStep === steps.length && IPO.referencePrice && (
               <Paper
                 square
                 elevation={0}
@@ -264,11 +268,13 @@ IssuerForm.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  issuerSignUp: state.issuerSignUp || {},
+  IPO: state.IPO || {},
+  user: state.users.user,
 });
 
 const mapDispatchToProps = {
-  createIssuer: signUpIssuer,
+  getIPOReferencePrice: getReferencePrice,
+  createIPO: signUpIPO,
   changePage: () => push("/issuer_profile"),
 };
 

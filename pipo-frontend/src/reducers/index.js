@@ -1,4 +1,4 @@
-import issuerSignUp from "./issuerSignUp";
+import IPO from "./IPO";
 import notes from "./notes";
 import users from "./users";
 import {combineReducers} from "redux";
@@ -6,5 +6,5 @@ import {combineReducers} from "redux";
 export default combineReducers({
   notes,
   users,
-  issuerSignUp,
+  IPO,
 });

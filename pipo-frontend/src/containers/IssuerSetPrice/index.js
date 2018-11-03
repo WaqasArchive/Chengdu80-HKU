@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
               elevation={1}>
               <Grid
                 container
-                spacing={4}
+                spacing={2}
                 justify="space-evenly">
                 <Grid
                   item
@@ -117,18 +117,33 @@ class Dashboard extends React.Component {
                     label="Ask Price"
                     margin="dense"
                     variant="filled"
+                    type="number"
                     className={classNames(classes.textField, classes.dense)}
                   />
                 </Grid>
                 <Grid
                   item
-                  xs={12}>
+                  xs={12}><TextField
+                    id="1"
+                    label="Number of Shares"
+                    margin="dense"
+                    variant="filled"
+                    type="number"
+                    className={classNames(classes.textField, classes.dense)}
+                  />
+                </Grid>
+                <Grid
+                  item
+                  xs={3}>
+                </Grid>
+                <Grid
+                  item
+                  xs={9}>
                   <Button
                     variant="contained"
                     color="primary"
                     className={classes.button}
                     size="large"
-
                   >
         SET PRICE
                     <Icon className={classes.rightIcon}>send</Icon>

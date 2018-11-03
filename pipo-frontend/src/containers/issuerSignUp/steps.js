@@ -193,7 +193,7 @@ export default [
     "label": "Select Bid price",
     "input":[
       {
-        id: "bid_price",
+        id: "price",
         name: "Bid Price",
         type: "number",
       },

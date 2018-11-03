@@ -4,7 +4,7 @@ const client = new ApiService({});
 
 const api = {};
 
-api.getNotes = () => client.get("/note");
-api.signUpIssuer = issuerDetails => client.post("/referencePrice",issuerDetails);
+api.getReferencePrice = issuerDetails => client.post("/get_reference_price",issuerDetails);
+api.addIPO = issuerDetails => client.post("/add_ipo",issuerDetails);
 
 export default api;
