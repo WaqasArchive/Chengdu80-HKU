@@ -1,5 +1,6 @@
 import AppBar from "@material-ui/core/AppBar";
 import CategoriesPortfolio from "./CategoriesPortfolio";
+import CurrentTrades from "./CurrentTrades";
 import EntityPortfolio from "./EntityPortfolio";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
@@ -126,10 +127,12 @@ class FullWidthTabs extends React.Component {
             >
               <Tab label="Portfolio Composition" />
               <Tab label="Risk Analysis" />
+              <Tab label="Recent Bids" />
             </Tabs>
           </AppBar>
           {value === 0 && <TabContainer dir={theme.direction}><EntityPortfolio /></TabContainer>}
           {value === 1 && <TabContainer dir={theme.direction}><CategoriesPortfolio /></TabContainer>}
+          {value === 2 && <TabContainer dir={theme.direction}><CurrentTrades /></TabContainer>}
         </Grid>
       </Grid>
     );

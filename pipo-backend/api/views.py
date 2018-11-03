@@ -41,7 +41,7 @@ def referencePrice(request):
 
 
 @csrf_exempt
-def addBid(request):
+def addIPO(request):
         if request.method == 'POST':
                 data = json.loads(request.body)
                 bid_price = data['bid_price']

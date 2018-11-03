@@ -1,0 +1,36 @@
+export default [
+  {
+    "id": 1,
+    "full_name": "Piyush Jha",
+    "symbol": "PIJH",
+    "current_price": 20.21,
+    "shares_owned": "1,231",
+    "status": "confirmed",
+    "transactionStatus": "Traded",
+  },
+  {
+    "id": 2,
+    "full_name": "Waqas Ali",
+    "symbol": "WAAL",
+    "current_price": 29.11,
+    "shares_owned": "832",
+    "transactionStatus": "Placed",
+  },
+  {
+    "id": 3,
+    "full_name": "Gabriel Match",
+    "symbol": "GAMA",
+    "current_price": 98.91,
+    "shares_owned": "50,000",
+    "status": "confirmed",
+    "transactionStatus": "Traded",
+  },
+  {
+    "id": 4,
+    "full_name": "David Hang",
+    "symbol": "DAHA",
+    "current_price": 56.73,
+    "shares_owned": "25,000",
+    "transactionStatus": "Placed",
+  },
+];
