@@ -173,7 +173,7 @@ class MiniDrawer extends React.Component {
           className={classNames(classes.appBar, {
             [classes.appBarShift]: this.state.open,
           })}
-          style={{backgroundColor: this.props.user && this.props.user.issuer ? "#4caf50" : "#3f51b5"}}
+          style={{backgroundColor: this.props.user.issuer ? "#4caf50" : "#3f51b5"}}
         >
           <Toolbar disableGutters={!this.state.open}>
             <IconButton
@@ -209,7 +209,7 @@ class MiniDrawer extends React.Component {
               variant="h6"
               color="inherit"
               noWrap>
-              {this.props.user && this.props.user.issuer ? "(Issuer)" : "(Investor)"}
+              {this.props.user.issuer ? `${this.props.user.name} (Issuer)` : `${this.props.user.name} (Investor)`}
             </Typography>
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
@@ -263,9 +263,8 @@ class MiniDrawer extends React.Component {
           <Divider />
           <List>
             {drawerItems.map((drawer,index) => {
-              console.log(this.props.user);
               if (index === 1) {
-                if (this.props.user && this.props.user.issuer) {
+                if (this.props.user.issuer) {
                   return (
                     <div key={index}>
                       <List>
@@ -330,7 +329,7 @@ class MiniDrawer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.users.user,
+  user: state.users.user || {"id":3,"name":"","issuer": false},
 });
 
 MiniDrawer.propTypes = {

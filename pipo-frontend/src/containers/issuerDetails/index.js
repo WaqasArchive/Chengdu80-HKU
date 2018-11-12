@@ -5,6 +5,7 @@ import OrderHistory from "./graphs/OrderHistory";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 import React from "react";
+import UserProfile from "./UserProfile";
 import{VictoryLabel} from "victory";
 import {withStyles} from "@material-ui/core/styles";
 const styles = theme => ({
@@ -37,6 +38,12 @@ function IssuerDetails(props) {
         xs={12}
         spacing={16}
         justify="space-evenly">
+        <Grid
+          item>
+          <Paper className={classes.paper}>
+            <UserProfile issuerId={props.match.params.id}/>
+          </Paper>
+        </Grid>
         <Grid
           item>
           <Paper className={classes.paper}>

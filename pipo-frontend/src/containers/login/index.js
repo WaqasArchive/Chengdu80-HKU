@@ -167,6 +167,7 @@ class LoginSheet extends React.Component {
                 Login
                   <Send className={classes.rightIcon} />
                 </Button>
+                <Typography style={{paddingTop: 20, color: "red"}}>{this.props.error}</Typography>
               </Grid>
             </Paper>
           </Grid>)}
@@ -227,6 +228,7 @@ LoginSheet.propTypes = {
 };
 
 const mapStateToProps = state => ({
+  error: state.users.error,
   user: state.users.user,
   tfa: state.users.tfa,
 });
@@ -241,4 +243,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(withStyles(styles)(LoginSheet));
-
